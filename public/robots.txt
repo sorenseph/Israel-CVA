@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Actualiza la URL al publicar (o define VITE_SITE_URL en producción)
+Sitemap: /sitemap.xml

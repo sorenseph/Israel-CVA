@@ -1,0 +1,27 @@
+$font-display: 'Space Grotesk', system-ui, sans-serif;
+$font-body: 'DM Sans', system-ui, sans-serif;
+
+$bg-deep: #0a0b10;
+$bg-card: rgba(255, 255, 255, 0.04);
+$bg-card-hover: rgba(255, 255, 255, 0.07);
+$border-subtle: rgba(255, 255, 255, 0.08);
+
+$accent-primary: #6366f1;
+$accent-secondary: #22d3ee;
+$accent-warm: #f472b6;
+$accent-glow: rgba(99, 102, 241, 0.45);
+
+$text-primary: #f4f4f5;
+$text-muted: #a1a1aa;
+$text-dim: #71717a;
+
+$radius-sm: 8px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$radius-full: 9999px;
+
+$shadow-glow: 0 0 60px -12px $accent-glow;
+$transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+$nav-height: 72px;
+$max-width: 1200px;
