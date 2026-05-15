@@ -77,6 +77,12 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    padding-inline: max(1.25rem, env(safe-area-inset-left, 0px))
+      max(1.25rem, env(safe-area-inset-right, 0px));
+
+    @media (min-width: 769px) {
+      padding-inline: 1.5rem;
+    }
   }
 
   &__logo {
