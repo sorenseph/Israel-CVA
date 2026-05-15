@@ -12,9 +12,7 @@ dist
 dist-ssr
 
 # Variables de entorno (claves, tokens — no subir a Git)
-.env
-.env.*
-!.env.example
+
 
 # Editor directories and files
 .vscode/*
