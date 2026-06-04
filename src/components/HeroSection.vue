@@ -175,7 +175,8 @@ onUnmounted(() => {
   padding: 0 !important;
   padding-top: $nav-height !important;
   background: $bg-deep;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   min-height: 100dvh;
   height: 100dvh;
   box-sizing: border-box;
@@ -191,14 +192,20 @@ onUnmounted(() => {
   grid-template-rows: auto minmax(0, 1fr) auto;
   align-items: center;
   justify-items: center;
-  gap: clamp(0.35rem, 1.5vh, 1rem);
-  padding: clamp(0.5rem, 2vh, 1.25rem) 0 clamp(1rem, 3vh, 1.75rem);
+  gap: clamp(0.85rem, 2.5vh, 1.75rem);
+  padding: clamp(0.35rem, 1.5vh, 0.85rem) 0 clamp(1.25rem, 4vh, 2.25rem);
 }
 
 /* Durante HomeDrop el JSON ya trae "Studio" — ocultamos el título HTML */
+.hero-home--lottie {
+  overflow: visible;
+}
+
 .hero-home--lottie .hero-home__stack {
   grid-template-rows: 1fr;
-  padding-top: clamp(1rem, 4vh, 2rem);
+  padding-top: clamp(2.5rem, 11vh, 5.5rem);
+  padding-bottom: clamp(2rem, 8vh, 4rem);
+  align-content: center;
 }
 
 .hero-home--lottie .hello,
@@ -214,9 +221,11 @@ onUnmounted(() => {
 
 .hero-home--lottie .person-lottie {
   grid-row: 1;
-  width: min(640px, 96vw);
-  height: min(52dvh, 480px);
+  width: min(560px, 92vw);
+  height: min(50dvh, 440px);
   align-self: center;
+  margin-top: clamp(1rem, 4vh, 2.5rem);
+  overflow: visible;
 }
 
 .hello {
@@ -280,13 +289,16 @@ onUnmounted(() => {
 }
 
 .person-lottie {
-  width: min(600px, 90vw);
-  height: min(42dvh, 380px);
-  margin: 0 auto;
+  width: min(520px, 88vw);
+  height: min(32dvh, 280px);
+  max-height: 100%;
+  margin: 0 auto clamp(0.25rem, 1vh, 0.75rem);
   display: flex;
   align-items: center;
   justify-content: center;
   align-self: center;
+  flex-shrink: 1;
+  overflow: visible;
 }
 
 .hero__actions {
@@ -294,9 +306,11 @@ onUnmounted(() => {
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.85rem;
-  margin-top: 0;
+  margin-top: clamp(0.35rem, 1.2vh, 0.85rem);
+  padding-bottom: clamp(0.25rem, 1vh, 0.5rem);
   opacity: 0;
   z-index: 2;
   position: relative;
+  flex-shrink: 0;
 }
 </style>

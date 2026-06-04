@@ -7,8 +7,8 @@ import type { AnimationItem } from 'lottie-web'
 const DROP_SRC = '/lottie/HomeDrop.json'
 const LOOP_SRC = '/lottie/HomeLoop.json'
 
-/** Escala visual compartida al final del drop y en el loop (evita el “fantasma”) */
-const HANDOFF_SCALE = 1.12
+/** Sin escala extra en GSAP — el tamaño lo controla solo CSS */
+const HANDOFF_SCALE = 1
 
 const dropEl = ref<HTMLElement | null>(null)
 const loopEl = ref<HTMLElement | null>(null)
@@ -164,10 +164,15 @@ defineExpose({ playEntrance })
 
 <style scoped lang="scss">
 .hero-lottie {
+  --lottie-w: min(520px, 88vw);
+  --loop-max-h: min(32dvh, 280px);
+  /* Misma anchura; drop es 680px alto vs 400px del loop → tope proporcional */
+  --drop-max-h: min(46dvh, 476px);
+
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 280px;
+  min-height: 220px;
   line-height: 0;
   pointer-events: none;
 }
@@ -177,32 +182,33 @@ defineExpose({ playEntrance })
   inset: 0;
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hero-lottie__layer--drop {
   align-items: flex-end;
+  padding-top: clamp(1.5rem, 6vh, 3.5rem);
+  padding-bottom: clamp(0.5rem, 2vh, 1.25rem);
 }
 
 .hero-lottie__layer--loop {
   align-items: center;
+  padding-bottom: clamp(0.25rem, 1vh, 0.75rem);
 }
 
 .hero-lottie__layer :deep(svg) {
-  width: min(600px, 90vw) !important;
+  width: var(--lottie-w) !important;
   height: auto !important;
   display: block;
-  transform: scale(1.12);
-  transform-origin: center bottom;
 }
 
 .hero-lottie__layer--loop :deep(svg) {
-  max-height: min(42dvh, 380px);
+  max-height: var(--loop-max-h);
   transform-origin: center center;
 }
 
 .hero-lottie__layer--drop :deep(svg) {
-  min-height: min(48dvh, 440px);
-  transform: scale(1.38);
+  max-height: var(--drop-max-h);
+  transform-origin: center bottom;
 }
 </style>
