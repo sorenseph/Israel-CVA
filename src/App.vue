@@ -46,7 +46,7 @@ onMounted(() => {
     <NavHeader :visible="preloaderDone" />
 
     <main>
-      <HeroSection :intro-ready="preloaderDone" />
+      <HeroSection :intro-ready="true" />
       <ServicesSection />
       <ShowcaseSection />
       <DeliverablesSection />

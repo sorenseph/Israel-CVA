@@ -10,6 +10,11 @@ const props = defineProps<{
   introReady?: boolean
 }>()
 
+const DROP_TAGLINES = [
+  'Productos digitales de alto impacto.',
+  'Webapps, SaaS y e-commerce.',
+] as const
+
 const sectionRef = ref<HTMLElement | null>(null)
 const titleRef = ref<HTMLElement | null>(null)
 const lottieRef = ref<InstanceType<typeof HeroLottie> | null>(null)
@@ -37,6 +42,7 @@ function getTargets() {
 
 function showFinalState() {
   const { chars, copy, actions } = getTargets()
+  if (titleRef.value) gsap.set(titleRef.value, { visibility: 'visible', opacity: 1 })
   if (chars?.length) gsap.set(chars, { yPercent: 0, opacity: 1 })
   if (copy?.length) gsap.set(copy, { opacity: 1, y: 0 })
   if (actions) gsap.set(actions, { opacity: 1, y: 0 })
@@ -53,6 +59,10 @@ async function waitForLottieRef() {
 
 function runTextIntro() {
   const { chars, copy, actions } = getTargets()
+
+  if (titleRef.value) {
+    gsap.set(titleRef.value, { visibility: 'visible', opacity: 1 })
+  }
 
   if (prefersReducedMotion() || !chars?.length) {
     showFinalState()
@@ -92,8 +102,12 @@ async function runHeroIntro() {
   if (!props.introReady || introStarted) return
   introStarted = true
 
+  lottiePhase.value = true
+  await nextTick()
+
   const lottie = await waitForLottieRef()
   if (!titleRef.value) {
+    lottiePhase.value = false
     introStarted = false
     return
   }
@@ -104,7 +118,15 @@ async function runHeroIntro() {
     await nextTick()
   }
 
-  lottiePhase.value = true
+  const taglineEls = sectionRef.value?.querySelectorAll('.hero-drop-taglines p')
+  if (taglineEls?.length) {
+    gsap.fromTo(
+      taglineEls,
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: HUYML_DURATION.base, stagger: 0.12, ease: HUYML_EASE.power1 },
+    )
+  }
+
   await (lottie?.playEntrance() ?? Promise.resolve())
   lottiePhase.value = false
   runTextIntro()
@@ -113,10 +135,8 @@ async function runHeroIntro() {
 function scheduleIntro() {
   if (!props.introReady || introStarted) return
   if (scheduleId) clearTimeout(scheduleId)
-  scheduleId = setTimeout(() => {
-    scheduleId = null
-    void runHeroIntro()
-  }, 200)
+  scheduleId = null
+  void runHeroIntro()
 }
 
 watch(
@@ -146,6 +166,10 @@ onUnmounted(() => {
     :class="{ 'hero-home--lottie': lottiePhase }"
   >
     <div class="hero-home__stack container">
+      <div v-show="lottiePhase" class="hero-drop-taglines" aria-hidden="true">
+        <p v-for="line in DROP_TAGLINES" :key="line">{{ line }}</p>
+      </div>
+
       <header class="hello">
         <p class="hero-intro">{{ profile.heroLead }}</p>
         <h1 ref="titleRef" class="hello-title">
@@ -201,10 +225,32 @@ onUnmounted(() => {
   overflow: visible;
 }
 
+.hero-drop-taglines {
+  grid-row: 1;
+  width: min(92vw, 640px);
+  text-align: center;
+  z-index: 3;
+  align-self: start;
+  padding-top: clamp(0.5rem, 2vh, 1.25rem);
+  pointer-events: none;
+
+  p {
+    font-family: $font-display;
+    font-size: clamp(0.72rem, 2vw, 0.88rem);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $text-muted;
+    margin: 0.2rem 0;
+    line-height: 1.35;
+    opacity: 0;
+  }
+}
+
 .hero-home--lottie .hero-home__stack {
-  grid-template-rows: 1fr;
-  padding-top: clamp(2.5rem, 11vh, 5.5rem);
-  padding-bottom: clamp(2rem, 8vh, 4rem);
+  grid-template-rows: auto 1fr;
+  padding-top: clamp(1.5rem, 6vh, 3rem);
+  padding-bottom: clamp(1.25rem, 5vh, 2.5rem);
   align-content: center;
 }
 
@@ -220,11 +266,11 @@ onUnmounted(() => {
 }
 
 .hero-home--lottie .person-lottie {
-  grid-row: 1;
+  grid-row: 2;
   width: min(560px, 92vw);
   height: min(50dvh, 440px);
   align-self: center;
-  margin-top: clamp(1rem, 4vh, 2.5rem);
+  margin-top: 0;
   overflow: visible;
 }
 
@@ -256,6 +302,8 @@ onUnmounted(() => {
   overflow: hidden;
   font-weight: 700;
   margin: 0;
+  opacity: 0;
+  visibility: hidden;
 
   @media (min-width: 48em) {
     font-size: clamp(4.5rem, 11vw, 10rem);

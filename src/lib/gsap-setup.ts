@@ -24,7 +24,7 @@ export const HUYML_DURATION = {
   text: 1.05,
   reveal: 0.85,
   enterDelay: 0.85,
-  lottieStart: 0.65,
+  lottieStart: 0.2,
   /** Pausa en el último frame del drop antes del loop (segundos) */
   dropHold: 0.75,
 } as const

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { gsap, HUYML_DURATION, HUYML_EASE } from '../lib/gsap-setup'
+import { gsap, HUYML_EASE } from '../lib/gsap-setup'
 
 const emit = defineEmits<{ ready: [] }>()
 
@@ -33,23 +33,17 @@ onMounted(() => {
     },
   })
 
-  tl.from('.preloader-overlay__taglines p', {
-    opacity: 0,
-    y: 14,
-    duration: HUYML_DURATION.base,
-    stagger: 0.12,
-  }).to({}, { duration: 1.1 })
+  tl.to({}, { duration: 0.12 }).to(root.value, {
+    autoAlpha: 0,
+    duration: 0.45,
+    delay: 0.08,
+  })
 })
 
 </script>
 
 <template>
-  <div ref="root" class="preloader-overlay" aria-hidden="true">
-    <div class="preloader-overlay__taglines">
-      <p>Productos digitales de alto impacto.</p>
-      <p>Webapps, SaaS y e-commerce.</p>
-    </div>
-  </div>
+  <div ref="root" class="preloader-overlay" aria-hidden="true" />
 </template>
 
 <style scoped lang="scss">
@@ -68,19 +62,4 @@ onMounted(() => {
   visibility: hidden;
 }
 
-.preloader-overlay__taglines {
-  width: min(92vw, 640px);
-  text-align: center;
-
-  p {
-    font-family: $font-display;
-    font-size: clamp(0.72rem, 2vw, 0.88rem);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: $text-muted;
-    margin: 0.2rem 0;
-    line-height: 1.35;
-  }
-}
 </style>
