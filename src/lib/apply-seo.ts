@@ -1,5 +1,5 @@
 import { seo, absoluteUrl, resolveSiteUrl } from '../data/seo'
-import { profile } from '../data/cv'
+import { buildStructuredData } from './seo-build'
 
 function upsertMeta(
   attr: 'name' | 'property',
@@ -31,67 +31,24 @@ function injectJsonLd() {
   const id = 'portfolio-json-ld'
   document.getElementById(id)?.remove()
 
-  const url = resolveSiteUrl() || undefined
+  const siteUrl = resolveSiteUrl()
+  if (!siteUrl) return
+
   const script = document.createElement('script')
   script.id = id
   script.type = 'application/ld+json'
-  script.textContent = JSON.stringify({
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'Organization',
-        '@id': url ? `${url}/#organization` : '#organization',
-        name: profile.name,
-        description: profile.summary,
-        email: `mailto:${profile.email}`,
-        telephone: profile.phone,
-        address: {
-          '@type': 'PostalAddress',
-          addressLocality: 'Ciudad de México',
-          addressCountry: 'MX',
-        },
-        url,
-        image: url ? absoluteUrl(seo.image) : seo.image,
-        knowsAbout: [
-          'Desarrollo web',
-          'Aplicaciones SaaS',
-          'E-commerce',
-          'CRM',
-          'Aplicaciones móviles',
-          'Plataformas digitales',
-        ],
-      },
-      {
-        '@type': 'WebSite',
-        '@id': url ? `${url}/#website` : '#website',
-        name: seo.siteName,
-        description: seo.description,
-        url,
-        inLanguage: 'es-MX',
-        publisher: { '@id': url ? `${url}/#organization` : '#organization' },
-      },
-      {
-        '@type': 'ProfilePage',
-        '@id': url ? `${url}/#profile` : '#profile',
-        name: seo.title,
-        description: seo.description,
-        url,
-        isPartOf: { '@id': url ? `${url}/#website` : '#website' },
-        about: { '@id': url ? `${url}/#organization` : '#organization' },
-        inLanguage: 'es-MX',
-      },
-    ],
-  })
+  script.textContent = JSON.stringify(buildStructuredData(siteUrl))
   document.head.appendChild(script)
 }
 
 /** Refuerza meta tags y datos estructurados en el cliente (SPA). */
 export function applySeo() {
-  const canonical = resolveSiteUrl() ? `${resolveSiteUrl()}/` : undefined
+  const siteUrl = resolveSiteUrl()
+  const canonical = siteUrl ? `${siteUrl}/` : undefined
   const image = absoluteUrl(seo.image)
 
   document.title = seo.title
-  document.documentElement.lang = 'es'
+  document.documentElement.lang = 'es-MX'
 
   upsertMeta('name', 'description', seo.description)
   upsertMeta('name', 'keywords', seo.keywords)
@@ -107,15 +64,16 @@ export function applySeo() {
   upsertMeta('property', 'og:image', image)
   upsertMeta('property', 'og:image:alt', seo.imageAlt)
   upsertMeta('property', 'og:locale', seo.locale)
-  if (canonical) upsertMeta('property', 'og:url', canonical)
+  if (canonical) {
+    upsertMeta('property', 'og:url', canonical)
+    upsertLink('canonical', canonical)
+  }
 
   upsertMeta('name', 'twitter:card', 'summary_large_image')
   upsertMeta('name', 'twitter:title', seo.title)
   upsertMeta('name', 'twitter:description', seo.description)
   upsertMeta('name', 'twitter:image', image)
   upsertMeta('name', 'twitter:image:alt', seo.imageAlt)
-
-  if (canonical) upsertLink('canonical', canonical)
 
   injectJsonLd()
 }

@@ -1,5 +1,13 @@
+import { writeFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { defineConfig, loadEnv, type Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import {
+  buildRobotsTxt,
+  buildSitemapXml,
+  buildStructuredData,
+  normalizeSiteUrl,
+} from './src/lib/seo-build'
 const LIMITS = { nameMax: 50, emailMax: 50, messageMax: 2000 }
 const EMAIL_CHARS = /^[a-zA-Z0-9@._+\-]+$/
 const NAME_CHARS = /^[\p{L}\p{N}\s'.-]+$/u
@@ -117,9 +125,32 @@ function contactApiDevPlugin(env: Record<string, string>): Plugin {
   }
 }
 
+function seoBuildPlugin(siteUrl: string): Plugin {
+  const canonical = `${siteUrl}/`
+  const ogImage = `${siteUrl}/logo-IC.png`
+  const jsonLd = JSON.stringify(buildStructuredData(siteUrl))
+
+  return {
+    name: 'seo-build',
+    transformIndexHtml(html) {
+      return html
+        .replaceAll('__SITE_URL__', siteUrl)
+        .replaceAll('__CANONICAL__', canonical)
+        .replaceAll('__OG_IMAGE__', ogImage)
+        .replace('<!--SEO_JSON_LD-->', jsonLd)
+    },
+    closeBundle() {
+      const dist = join(process.cwd(), 'dist')
+      writeFileSync(join(dist, 'sitemap.xml'), buildSitemapXml(siteUrl), 'utf8')
+      writeFileSync(join(dist, 'robots.txt'), buildRobotsTxt(siteUrl), 'utf8')
+    },
+  }
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
+  const siteUrl = normalizeSiteUrl(env.VITE_SITE_URL)
   return {
-    plugins: [vue(), contactApiDevPlugin(env)],
+    plugins: [vue(), contactApiDevPlugin(env), seoBuildPlugin(siteUrl)],
   }
 })

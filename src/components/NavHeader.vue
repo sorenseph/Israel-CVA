@@ -39,7 +39,7 @@ watch(
 <template>
   <header class="nav" :class="{ 'nav--scrolled': scrolled, 'nav--open': menuOpen }">
     <nav ref="navInner" class="nav__inner container">
-      <a href="#inicio" class="nav__logo" @click="closeMenu">
+      <a href="#inicio" class="nav__logo" aria-label="Studio ICVA — inicio" @click="closeMenu">
         <SiteLogo size="md" />
       </a>
 
