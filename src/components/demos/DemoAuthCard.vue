@@ -16,7 +16,7 @@ function logout() {
 
 <template>
   <motion.div class="demo-auth" layout>
-    <p class="demo-auth__label">Demo · Supabase Auth</p>
+    <p class="demo-auth__label">Demo · Acceso de clientes</p>
     <motion.div v-if="!loggedIn" class="demo-auth__form">
       <input v-model="email" type="email" readonly />
       <motion.button

@@ -9,8 +9,16 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: $nav-height;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 body {
@@ -37,7 +45,7 @@ img {
 }
 
 section {
-  padding: 6rem 1.5rem;
+  padding: clamp(5rem, 12vw, 8rem) clamp(1.25rem, 4vw, 2rem);
   position: relative;
 }
 
@@ -53,19 +61,22 @@ section {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, $accent-secondary 0%, $accent-primary 50%, $accent-warm 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: $accent-primary;
 }
 
 .bg-mesh {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(99, 102, 241, 0.18), transparent),
-    radial-gradient(ellipse 60% 40% at 90% 20%, rgba(34, 211, 238, 0.12), transparent),
-    radial-gradient(ellipse 50% 30% at 50% 100%, rgba(244, 114, 182, 0.08), transparent);
+  display: none;
+}
+
+.section-block {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-panel {
+  background: $bg-card;
+  border: 1px solid $border-subtle;
+  border-radius: $radius-lg;
+  backdrop-filter: blur(16px);
+  box-shadow: $shadow-card;
 }

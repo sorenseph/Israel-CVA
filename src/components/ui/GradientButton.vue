@@ -55,33 +55,34 @@ defineProps<{
   }
 
   &--primary {
-    background: linear-gradient(135deg, $accent-primary, #818cf8);
-    color: white;
-    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.4);
+    background: $stroke-ink;
+    color: $bg-surface;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 
     &:hover {
-      box-shadow: 0 8px 32px rgba(99, 102, 241, 0.55);
+      background: $accent-primary;
+      box-shadow: 0 12px 32px rgba(14, 133, 255, 0.35);
     }
   }
 
   &--outline {
     background: transparent;
     color: $text-primary;
-    border: 1px solid $border-subtle;
-    backdrop-filter: blur(8px);
+    border: 2px solid $stroke-ink;
 
     &:hover {
       border-color: $accent-primary;
-      background: rgba(99, 102, 241, 0.1);
+      color: $accent-primary;
+      background: rgba(14, 133, 255, 0.06);
     }
   }
 
   &--ghost {
-    background: rgba(255, 255, 255, 0.06);
+    background: $bg-muted;
     color: $text-primary;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: #e0e0e0;
     }
   }
 

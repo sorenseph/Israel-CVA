@@ -1,27 +1,36 @@
 $font-display: 'Space Grotesk', system-ui, sans-serif;
 $font-body: 'DM Sans', system-ui, sans-serif;
 
-$bg-deep: #0a0b10;
-$bg-card: rgba(255, 255, 255, 0.04);
-$bg-card-hover: rgba(255, 255, 255, 0.07);
-$border-subtle: rgba(255, 255, 255, 0.08);
+// Tema claro — inspiración editorial / huyml
+$bg-deep: #f4f3ef;
+$bg-surface: #ffffff;
+$bg-card: rgba(255, 255, 255, 0.72);
+$bg-card-hover: rgba(255, 255, 255, 0.95);
+$bg-muted: #ebebeb;
+$border-subtle: rgba(0, 0, 0, 0.08);
+$border-strong: rgba(0, 0, 0, 0.14);
 
-$accent-primary: #6366f1;
-$accent-secondary: #22d3ee;
-$accent-warm: #f472b6;
-$accent-glow: rgba(99, 102, 241, 0.45);
+$accent-primary: #0e85ff;
+$accent-secondary: #0a0a0a;
+$accent-warm: #ff6b4a;
+$accent-glow: rgba(14, 133, 255, 0.25);
 
-$text-primary: #f4f4f5;
-$text-muted: #a1a1aa;
-$text-dim: #71717a;
+$stroke-ink: #0a0a0a;
+$fill-soft: #ebebeb;
 
-$radius-sm: 8px;
-$radius-md: 16px;
-$radius-lg: 24px;
+$text-primary: #0a0a0a;
+$text-muted: #5c5c5c;
+$text-dim: #8a8a8a;
+
+$radius-sm: 10px;
+$radius-md: 18px;
+$radius-lg: 28px;
 $radius-full: 9999px;
 
-$shadow-glow: 0 0 60px -12px $accent-glow;
-$transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$shadow-soft: 0 24px 60px -20px rgba(0, 0, 0, 0.12);
+$shadow-card: 0 8px 32px rgba(0, 0, 0, 0.06);
+$transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
-$nav-height: 72px;
-$max-width: 1200px;
+$nav-height: 76px;
+$max-width: 1240px;

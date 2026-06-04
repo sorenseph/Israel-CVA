@@ -23,9 +23,9 @@ const tabs: { id: Tab; label: string; icon: string }[] = [
 const chartBars = [42, 68, 55, 82, 71, 94, 78, 88, 65, 91, 76, 85]
 
 const notifications = ref([
-  { id: 1, text: 'Deploy en Vercel completado', time: 'hace 2m' },
+  { id: 1, text: 'Nueva versión publicada', time: 'hace 2m' },
   { id: 2, text: 'Nuevo lead desde landing', time: 'hace 5m' },
-  { id: 3, text: 'Webhook Stripe: pago OK', time: 'hace 12m' },
+  { id: 3, text: 'Pago confirmado en checkout', time: 'hace 12m' },
   { id: 4, text: 'Pedido #1842 enviado', time: 'hace 18m' },
 ])
 
@@ -42,7 +42,7 @@ const pipeline = computed(() => [
     <aside class="studio__sidebar">
       <div class="studio__brand">
         <SiteLogo class="studio__logo" size="sm" variant="svg" />
-        <span v-if="!sidebarCollapsed" class="studio__brand-text">Studio</span>
+        <span v-if="!sidebarCollapsed" class="studio__brand-text">Studio ICVA</span>
       </div>
       <nav class="studio__nav">
         <button
@@ -83,7 +83,7 @@ const pipeline = computed(() => [
       <header class="studio__header">
         <motion.div :key="activeTab" :initial="{ opacity: 0, x: -8 }" :animate="{ opacity: 1, x: 0 }">
           <h3>{{ tabs.find((t) => t.id === activeTab)?.label }}</h3>
-          <p>Demo full-stack · Vue 3 · Supabase · Stripe · Motion</p>
+          <p>Vista previa de tienda, panel y CRM en un solo producto</p>
         </motion.div>
         <div class="studio__header-actions">
           <span class="studio__pill">Preview</span>
@@ -191,11 +191,10 @@ const pipeline = computed(() => [
   display: grid;
   grid-template-columns: 240px 1fr;
   min-height: 720px;
-  background: #0d0e14;
-  border-radius: $radius-lg;
-  border: 1px solid $border-subtle;
+  background: #fafaf8;
+  color: $text-primary;
+  border-radius: 0 0 $radius-lg $radius-lg;
   overflow: hidden;
-  box-shadow: 0 48px 100px rgba(0, 0, 0, 0.5);
 
   &--collapsed {
     grid-template-columns: 76px 1fr;
@@ -211,7 +210,7 @@ const pipeline = computed(() => [
   display: flex;
   flex-direction: column;
   padding: 1.25rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: $bg-muted;
   border-right: 1px solid $border-subtle;
 }
 
@@ -265,7 +264,7 @@ const pipeline = computed(() => [
 .studio__collapse {
   margin-top: auto;
   padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: $bg-muted;
   border: 1px solid $border-subtle;
   border-radius: $radius-sm;
   color: $text-dim;
@@ -293,7 +292,7 @@ const pipeline = computed(() => [
   align-items: center;
   gap: 0.5rem;
   padding: 0.55rem 1rem;
-  background: rgba(255, 255, 255, 0.04);
+  background: $bg-surface;
   border: 1px solid $border-subtle;
   border-radius: $radius-full;
   color: $text-dim;
@@ -324,7 +323,7 @@ const pipeline = computed(() => [
   height: 40px;
   border: 1px solid $border-subtle;
   border-radius: $radius-sm;
-  background: rgba(255, 255, 255, 0.04);
+  background: $bg-surface;
   cursor: pointer;
   font-size: 1rem;
 
@@ -352,7 +351,7 @@ const pipeline = computed(() => [
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.06);
+  background: $bg-muted;
   border: 1px solid $border-subtle;
 
   :deep(.site-logo) {
@@ -399,7 +398,7 @@ const pipeline = computed(() => [
   font-size: 0.72rem;
   padding: 0.3rem 0.7rem;
   border-radius: $radius-full;
-  background: rgba(255, 255, 255, 0.06);
+  background: $bg-muted;
   color: $text-muted;
 
   &--live {
@@ -458,7 +457,7 @@ const pipeline = computed(() => [
 }
 
 .studio__panel {
-  background: rgba(255, 255, 255, 0.03);
+  background: $bg-surface;
   border: 1px solid $border-subtle;
   border-radius: $radius-md;
   padding: 1.1rem;
@@ -538,7 +537,7 @@ const pipeline = computed(() => [
 
 .studio__pipeline-bar {
   height: 8px;
-  background: rgba(255, 255, 255, 0.06);
+  background: $bg-muted;
   border-radius: $radius-full;
   margin-bottom: 0.5rem;
   overflow: hidden;
@@ -560,7 +559,7 @@ const pipeline = computed(() => [
     display: flex;
     justify-content: space-between;
     padding: 0.65rem;
-    background: rgba(255, 255, 255, 0.03);
+    background: $bg-surface;
     border-radius: $radius-sm;
     font-size: 0.85rem;
 

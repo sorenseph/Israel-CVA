@@ -1,4 +1,4 @@
-# Portfolio — Israel Cárdenas Valderas
+# Portfolio — Studio ICVA
 
 Sitio personal en Vue 3 + TypeScript con perfil CV y servicios freelance.
 

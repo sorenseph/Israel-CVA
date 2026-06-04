@@ -1,32 +1,44 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { motion } from 'motion-v'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { gsap, HUYML_EASE } from '../lib/gsap-setup'
 import { navLinks } from '../data/cv'
 import SiteLogo from './ui/SiteLogo.vue'
 
+const props = defineProps<{
+  visible?: boolean
+}>()
+
 const scrolled = ref(false)
 const menuOpen = ref(false)
+const navInner = ref<HTMLElement | null>(null)
 
 function onScroll() {
-  scrolled.value = window.scrollY > 40
+  scrolled.value = window.scrollY > 24
 }
 
 function closeMenu() {
   menuOpen.value = false
 }
 
-onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }))
+onMounted(() => {
+  window.addEventListener('scroll', onScroll, { passive: true })
+  if (navInner.value) gsap.set(navInner.value, { opacity: props.visible ? 1 : 0, y: props.visible ? 0 : -16 })
+})
+
 onUnmounted(() => window.removeEventListener('scroll', onScroll))
+
+watch(
+  () => props.visible,
+  (v) => {
+    if (!v || !navInner.value) return
+    gsap.to(navInner.value, { opacity: 1, y: 0, duration: 1, ease: HUYML_EASE.power1, delay: 0.5 })
+  },
+)
 </script>
 
 <template>
-  <header class="nav" :class="{ 'nav--scrolled': scrolled }">
-    <motion.nav
-      class="nav__inner container"
-      :initial="{ y: -20, opacity: 0 }"
-      :animate="{ y: 0, opacity: 1 }"
-      :transition="{ duration: 0.5 }"
-    >
+  <header class="nav" :class="{ 'nav--scrolled': scrolled, 'nav--open': menuOpen }">
+    <nav ref="navInner" class="nav__inner container">
       <a href="#inicio" class="nav__logo" @click="closeMenu">
         <SiteLogo size="md" />
       </a>
@@ -39,7 +51,6 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       >
         <span />
         <span />
-        <span />
       </button>
 
       <ul class="nav__links" :class="{ 'nav__links--open': menuOpen }">
@@ -47,10 +58,10 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
           <a :href="`#${link.id}`" @click="closeMenu">{{ link.label }}</a>
         </li>
         <li>
-          <a href="#contacto" class="nav__cta" @click="closeMenu">Hablemos</a>
+          <a href="#contacto" class="nav__cta" @click="closeMenu">Contacto</a>
         </li>
       </ul>
-    </motion.nav>
+    </nav>
   </header>
 </template>
 
@@ -64,12 +75,14 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   right: 0;
   z-index: 100;
   height: $nav-height;
-  transition: background $transition, backdrop-filter $transition;
+  transition: background $transition, box-shadow $transition;
 
-  &--scrolled {
-    background: rgba(10, 11, 16, 0.85);
-    backdrop-filter: blur(16px);
+  &--scrolled,
+  &--open {
+    background: rgba(244, 243, 239, 0.88);
+    backdrop-filter: blur(20px);
     border-bottom: 1px solid $border-subtle;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
   }
 
   &__inner {
@@ -88,30 +101,29 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   &__logo {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    font-family: $font-display;
-    font-weight: 700;
+    z-index: 2;
   }
 
   &__toggle {
     display: none;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 8px;
+    z-index: 2;
 
     span {
       display: block;
-      width: 22px;
+      width: 24px;
       height: 2px;
-      background: $text-primary;
+      background: $stroke-ink;
       border-radius: 2px;
       transition: $transition;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       display: flex;
     }
   }
@@ -123,7 +135,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
     list-style: none;
 
     a {
-      font-size: 0.9rem;
+      font-family: $font-display;
+      font-size: 0.88rem;
+      font-weight: 500;
       color: $text-muted;
       transition: color $transition;
 
@@ -132,21 +146,22 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       position: fixed;
+      inset: 0;
       top: $nav-height;
-      left: 0;
-      right: 0;
       flex-direction: column;
-      padding: 2rem;
-      gap: 1.5rem;
-      background: rgba(10, 11, 16, 0.98);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid $border-subtle;
-      transform: translateY(-120%);
+      justify-content: center;
+      gap: 2rem;
+      background: $bg-deep;
+      transform: translateY(-100%);
       opacity: 0;
       pointer-events: none;
       transition: transform $transition, opacity $transition;
+
+      a {
+        font-size: 1.25rem;
+      }
 
       &--open {
         transform: translateY(0);
@@ -157,14 +172,15 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   }
 
   &__cta {
-    padding: 0.5rem 1.25rem !important;
-    background: linear-gradient(135deg, $accent-primary, #818cf8);
-    color: white !important;
+    padding: 0.55rem 1.35rem !important;
+    background: $stroke-ink !important;
+    color: $bg-surface !important;
     border-radius: $radius-full;
-    font-weight: 600;
+    font-weight: 600 !important;
 
     &:hover {
-      opacity: 0.9;
+      background: $accent-primary !important;
+      color: white !important;
     }
   }
 }

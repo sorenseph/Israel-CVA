@@ -31,7 +31,7 @@ defineProps<{
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: $accent-secondary;
+    color: $accent-primary;
     margin-bottom: 0.75rem;
   }
 

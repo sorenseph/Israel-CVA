@@ -3,52 +3,38 @@ import { motion } from 'motion-v'
 import SectionTitle from './ui/SectionTitle.vue'
 import ShowcaseApp from './showcase/ShowcaseApp.vue'
 import GradientButton from './ui/GradientButton.vue'
-import HumanFigure from './ui/HumanFigure.vue'
+import AnimateIn from './ui/AnimateIn.vue'
 </script>
 
 <template>
-  <section id="demos" class="showcase">
-    <motion.div
-      class="container showcase__wrap"
-      :initial="{ opacity: 0 }"
-      :while-in-view="{ opacity: 1 }"
-      :viewport="{ once: true }"
-    >
-      <div class="showcase__intro">
+  <section id="demos" class="showcase section-block">
+    <div class="container showcase__wrap">
+      <AnimateIn>
         <SectionTitle
           label="Demo interactiva"
-          title="Así se ve un producto real que puedo entregarte"
-          subtitle="Tienda con carrito, checkout Stripe, dashboard y CRM en vivo con Supabase. Explora las pestañas del estudio."
+          title="Así se ve un producto en vivo"
+          subtitle="Explora tienda, checkout, panel y CRM en un solo entorno de demostración."
         />
-        <motion.div
-          class="showcase__cta"
-          :initial="{ opacity: 0, y: 12 }"
-          :while-in-view="{ opacity: 1, y: 0 }"
-          :viewport="{ once: true }"
-        >
+        <div class="showcase__cta">
           <GradientButton href="#contacto">Quiero algo así</GradientButton>
-          <GradientButton href="#proyectos" variant="outline">Ver entregables</GradientButton>
-        </motion.div>
-      </div>
+          <GradientButton href="#proyectos" variant="outline">Ver tipos de proyecto</GradientButton>
+        </div>
+      </AnimateIn>
 
       <motion.div
-        class="showcase__stage-wrap"
-        :initial="{ opacity: 0, y: 40 }"
+        class="showcase__stage"
+        :initial="{ opacity: 0, y: 48 }"
         :while-in-view="{ opacity: 1, y: 0 }"
         :viewport="{ once: true, margin: '-60px' }"
-        :transition="{ duration: 0.7 }"
+        :transition="{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }"
       >
-        <HumanFigure name="poseCoffee" size="md" class="showcase__figure" :delay="0.15" />
-        <div class="showcase__stage">
-          <div class="showcase__browser-chrome">
-            <span /><span /><span />
-            <p>israel-studio.app — preview</p>
-          </div>
-          <ShowcaseApp />
+        <div class="showcase__browser-chrome">
+          <span /><span /><span />
+          <p>studio-icva.app — preview</p>
         </div>
+        <ShowcaseApp />
       </motion.div>
-
-    </motion.div>
+    </div>
   </section>
 </template>
 
@@ -56,21 +42,12 @@ import HumanFigure from './ui/HumanFigure.vue'
 @use '../styles/variables' as *;
 
 .showcase {
-  padding: 6rem 1rem;
-  background:
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(99, 102, 241, 0.12), transparent),
-    linear-gradient(180deg, rgba(34, 211, 238, 0.04), transparent);
-  overflow: hidden;
+  background: $bg-deep;
 }
 
 .showcase__wrap {
-  position: relative;
   max-width: 1400px;
   margin: 0 auto;
-}
-
-.showcase__intro {
-  margin-bottom: 2.5rem;
 }
 
 .showcase__cta {
@@ -79,28 +56,14 @@ import HumanFigure from './ui/HumanFigure.vue'
   gap: 1rem;
   justify-content: center;
   margin-top: 1.5rem;
-}
-
-.showcase__stage-wrap {
-  position: relative;
-}
-
-.showcase__figure {
-  position: absolute;
-  right: -2%;
-  bottom: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.9;
-
-  @media (max-width: 1100px) {
-    display: none;
-  }
+  margin-bottom: 2.5rem;
 }
 
 .showcase__stage {
-  position: relative;
-  z-index: 1;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-soft;
+  border: 1px solid $border-subtle;
 }
 
 .showcase__browser-chrome {
@@ -108,16 +71,13 @@ import HumanFigure from './ui/HumanFigure.vue'
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 1rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid $border-subtle;
-  border-bottom: none;
-  border-radius: $radius-md $radius-md 0 0;
+  background: $bg-muted;
+  border-bottom: 1px solid $border-subtle;
 
   span {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
 
     &:nth-child(1) {
       background: #ff5f57;
@@ -136,5 +96,4 @@ import HumanFigure from './ui/HumanFigure.vue'
     color: $text-dim;
   }
 }
-
 </style>

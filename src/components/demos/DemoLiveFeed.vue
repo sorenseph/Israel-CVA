@@ -11,14 +11,14 @@ const mockItems: ContactLead[] = [
     id: '1',
     name: 'María G.',
     email: 'maria@startup.mx',
-    message: 'Necesito MVP con Supabase',
+    message: 'Necesito una webapp para mi startup',
     created_at: new Date().toISOString(),
   },
   {
     id: '2',
     name: 'Carlos R.',
     email: 'carlos@fintech.io',
-    message: 'Integración Stripe + dashboard',
+    message: 'Tienda en línea con panel de pedidos',
     created_at: new Date().toISOString(),
   },
 ]
@@ -79,7 +79,7 @@ onUnmounted(() => {
         </motion.li>
       </AnimatePresence>
     </ul>
-    <p v-if="!isSupabaseConfigured" class="demo-feed__hint">Conecta Supabase para ver inserts reales</p>
+    <p v-if="!isSupabaseConfigured" class="demo-feed__hint">Vista de demostración — los mensajes reales aparecen al enviar el formulario de contacto</p>
   </div>
 </template>
 

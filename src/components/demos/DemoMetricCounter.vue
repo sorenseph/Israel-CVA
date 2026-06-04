@@ -25,7 +25,7 @@ onMounted(async () => {
   <div class="demo-metrics">
     <div class="demo-metrics__head">
       <span class="demo-metrics__dot" :class="{ 'demo-metrics__dot--live': live }" />
-      <span>{{ live ? 'Supabase en vivo' : 'Demo local' }}</span>
+      <span>{{ live ? 'Datos en vivo' : 'Vista de demostración' }}</span>
     </div>
     <div class="demo-metrics__grid">
       <motion.div

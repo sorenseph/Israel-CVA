@@ -2,71 +2,58 @@
 import { motion } from 'motion-v'
 import { projectDeliverables } from '../data/cv'
 import SectionTitle from './ui/SectionTitle.vue'
-import HumanFigure from './ui/HumanFigure.vue'
+import AnimateIn from './ui/AnimateIn.vue'
+import SectionLottie from './illustrations/SectionLottie.vue'
+import type { LottieIconKey } from '../data/lottie-icons'
 </script>
 
 <template>
-  <section id="proyectos" class="deliverables">
-    <motion.div
-      class="container"
-      :initial="{ opacity: 0 }"
-      :while-in-view="{ opacity: 1 }"
-      :viewport="{ once: true }"
-    >
-      <SectionTitle
-        label="Entregables"
-        title="Proyectos que construyo para clientes"
-        subtitle="Desde startups hasta empresas: web apps, tiendas, SaaS, portales corporativos y productos digitales a medida."
-      />
+  <section id="proyectos" class="deliverables section-block">
+    <div class="container">
+      <AnimateIn>
+        <SectionTitle
+          label="Proyectos"
+          title="Lo que podemos construir contigo"
+          subtitle="Tipos de producto que lanzamos con marcas, startups y equipos corporativos."
+        />
+      </AnimateIn>
 
-      <div class="deliverables__layout">
-        <div class="deliverables__grid">
+      <div class="deliverables__grid">
         <motion.article
           v-for="(item, i) in projectDeliverables"
           :key="item.title"
-          class="deliverables__card"
+          class="deliverables__card glass-panel"
           :class="`deliverables__card--${item.span}`"
-          :initial="{ opacity: 0, y: 24 }"
+          :initial="{ opacity: 0, y: 28 }"
           :while-in-view="{ opacity: 1, y: 0 }"
           :viewport="{ once: true }"
-          :transition="{ delay: i * 0.06 }"
+          :transition="{ delay: i * 0.05 }"
           :while-hover="{ y: -6 }"
         >
+          <div class="deliverables__icon">
+            <SectionLottie
+              :key="item.lottie"
+              :name="item.lottie as LottieIconKey"
+              size="lg"
+            />
+          </div>
           <span class="deliverables__tag">{{ item.tag }}</span>
           <h3>{{ item.title }}</h3>
           <p>{{ item.description }}</p>
           <ul>
-            <li v-for="f in item.features" :key="f">{{ f }}</li>
+            <li v-for="o in item.outcomes" :key="o">{{ o }}</li>
           </ul>
         </motion.article>
-        </div>
-        <HumanFigure name="posePower" size="lg" class="deliverables__figure" :delay="0.2" />
       </div>
-    </motion.div>
+    </div>
   </section>
 </template>
 
 <style scoped lang="scss">
 @use '../styles/variables' as *;
 
-.deliverables__layout {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 2rem;
-  align-items: end;
-
-  @media (max-width: 1000px) {
-    grid-template-columns: 1fr;
-
-    .deliverables__figure {
-      display: none;
-    }
-  }
-}
-
-.deliverables__figure {
-  align-self: center;
-  max-width: 280px;
+.deliverables {
+  background: $bg-surface;
 }
 
 .deliverables__grid {
@@ -80,20 +67,15 @@ import HumanFigure from './ui/HumanFigure.vue'
 }
 
 .deliverables__card {
-  background: $bg-card;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-lg;
   padding: 1.5rem;
-  transition: border-color $transition, box-shadow $transition;
+  transition: box-shadow $transition;
 
   &:hover {
-    border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    box-shadow: $shadow-soft;
   }
 
   &--wide {
     grid-column: span 2;
-
     @media (max-width: 900px) {
       grid-column: span 1;
     }
@@ -101,7 +83,6 @@ import HumanFigure from './ui/HumanFigure.vue'
 
   &--tall {
     grid-row: span 2;
-
     @media (max-width: 900px) {
       grid-row: span 1;
     }
@@ -129,18 +110,30 @@ import HumanFigure from './ui/HumanFigure.vue'
     li {
       font-size: 0.7rem;
       padding: 0.2rem 0.55rem;
-      background: rgba(255, 255, 255, 0.06);
+      background: $bg-muted;
       border-radius: $radius-full;
-      color: $text-dim;
     }
   }
 }
 
+.deliverables__icon {
+  margin-bottom: 0.5rem;
+  min-height: 128px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: visible;
+}
+
+.deliverables__icon:has(.section-lottie--boost) {
+  min-height: 155px;
+}
+
 .deliverables__tag {
   font-size: 0.65rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: $accent-secondary;
+  color: $accent-primary;
 }
 </style>

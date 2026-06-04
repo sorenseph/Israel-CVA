@@ -10,7 +10,7 @@ const year = new Date().getFullYear()
     <div class="container footer__inner">
       <SiteLogo size="sm" variant="png" />
       <p>
-        © {{ year }} <strong>{{ profile.name }}</strong> — Ingeniero en Sistemas Computacionales
+        © {{ year }} <strong>{{ profile.name }}</strong> — Agencia de productos digitales
       </p>
     </div>
   </footer>

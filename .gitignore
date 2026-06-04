@@ -13,7 +13,6 @@ dist-ssr
 
 # Variables de entorno (claves, tokens — no subir a Git)
 
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

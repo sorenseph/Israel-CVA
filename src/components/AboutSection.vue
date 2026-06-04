@@ -1,113 +1,99 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
-import { profile, skills } from '../data/cv'
+import { profile } from '../data/cv'
+import { benefits, studioPillars } from '../data/landing'
 import SectionTitle from './ui/SectionTitle.vue'
-import HumanFigure from './ui/HumanFigure.vue'
+import AnimateIn from './ui/AnimateIn.vue'
+import SectionLottie from './illustrations/SectionLottie.vue'
 </script>
 
 <template>
-  <section id="sobre-mi" class="about">
-    <motion.div
-      class="container"
-      :initial="{ opacity: 0, y: 40 }"
-      :while-in-view="{ opacity: 1, y: 0 }"
-      :viewport="{ once: true, margin: '-80px' }"
-      :transition="{ duration: 0.6 }"
-    >
-      <SectionTitle
-        label="Sobre mí"
-        title="Desarrollo web con visión de producto"
-        :subtitle="profile.title"
-      />
+  <section id="sobre-mi" class="about section-block">
+    <div class="container">
+      <AnimateIn>
+        <div class="about__head">
+          <SectionTitle
+            label="Studio"
+            title="Agencia enfocada en producto"
+            :subtitle="profile.title"
+          />
+          <div class="about__head-lottie">
+            <SectionLottie name="create-web" />
+          </div>
+        </div>
+      </AnimateIn>
 
       <div class="about__layout">
-      <motion.div
-        class="about__grid"
-        :initial="{ opacity: 0 }"
-        :while-in-view="{ opacity: 1 }"
-        :viewport="{ once: true }"
-        :transition="{ delay: 0.2 }"
-      >
-        <div class="about__card about__card--main">
-          <p>{{ profile.summary }}</p>
-          <ul class="about__contact">
-            <li>
-              <span>Email</span>
-              <a :href="`mailto:${profile.email}`">{{ profile.email }}</a>
-            </li>
-            <li>
-              <span>Teléfono</span>
-              <a :href="`tel:${profile.phone.replace(/\s/g, '')}`">{{ profile.phone }}</a>
-            </li>
-            <li>
-              <span>Ubicación</span>
-              <span>{{ profile.location }}</span>
-            </li>
-          </ul>
-        </div>
+        <AnimateIn :delay="0.1">
+          <div class="about__card glass-panel">
+            <p>{{ profile.summary }}</p>
+            <ul class="about__benefits">
+              <motion.li
+                v-for="(b, i) in benefits"
+                :key="b"
+                :initial="{ opacity: 0, x: -12 }"
+                :while-in-view="{ opacity: 1, x: 0 }"
+                :viewport="{ once: true }"
+                :transition="{ delay: 0.1 + i * 0.06 }"
+              >
+                {{ b }}
+              </motion.li>
+            </ul>
+          </div>
+        </AnimateIn>
 
-        <div class="about__skills">
-          <h3>Habilidades técnicas</h3>
-          <ul class="skills-list">
-            <motion.li
-              v-for="(skill, i) in skills"
-              :key="skill.name"
-              class="skill-item"
-              :initial="{ opacity: 0, x: -16 }"
-              :while-in-view="{ opacity: 1, x: 0 }"
+        <AnimateIn :delay="0.2">
+          <div class="about__pillars">
+            <motion.article
+              v-for="(pillar, i) in studioPillars"
+              :key="pillar.title"
+              class="about__pillar glass-panel"
+              :initial="{ opacity: 0, y: 20 }"
+              :while-in-view="{ opacity: 1, y: 0 }"
               :viewport="{ once: true }"
-              :transition="{ delay: i * 0.04 }"
+              :transition="{ delay: i * 0.08 }"
             >
-              <motion.div class="skill-item__header">
-                <span>{{ skill.name }}</span>
-                <span>{{ skill.level }}%</span>
-              </motion.div>
-              <div class="skill-item__track">
-                <motion.div
-                  class="skill-item__fill"
-                  :initial="{ width: 0 }"
-                  :while-in-view="{ width: `${skill.level}%` }"
-                  :viewport="{ once: true }"
-                  :transition="{ duration: 0.8, delay: 0.1 + i * 0.04 }"
-                />
-              </div>
-            </motion.li>
-          </ul>
-        </div>
-      </motion.div>
-      <HumanFigure name="partner" size="lg" class="about__figure" :delay="0.2" />
+              <SectionLottie :key="pillar.lottie" :name="pillar.lottie" size="sm" />
+              <h3>{{ pillar.title }}</h3>
+              <p>{{ pillar.text }}</p>
+            </motion.article>
+          </div>
+        </AnimateIn>
       </div>
-    </motion.div>
+    </div>
   </section>
 </template>
 
 <style scoped lang="scss">
 @use '../styles/variables' as *;
 
+.about {
+  background: $bg-deep;
+}
+
+.about__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  gap: 1.25rem;
+}
+
+.about__head-lottie {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(600px, 88vw);
+  height: 336px;
+  margin: 0 auto;
+  overflow: visible;
+}
+
 .about__layout {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 2rem;
-  align-items: end;
-
-  @media (max-width: 1000px) {
-    grid-template-columns: 1fr;
-
-    .about__figure {
-      display: none;
-    }
-  }
-}
-
-.about__figure {
-  align-self: center;
-  max-width: 260px;
-}
-
-.about__grid {
-  display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -115,89 +101,65 @@ import HumanFigure from './ui/HumanFigure.vue'
 }
 
 .about__card {
-  background: $bg-card;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-lg;
   padding: 2rem;
-  backdrop-filter: blur(8px);
-
-  &--main p {
-    color: $text-muted;
-    margin-bottom: 2rem;
-    font-size: 1.05rem;
-    line-height: 1.75;
-  }
 }
 
-.about__contact {
+.about__card p {
+  color: $text-muted;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+.about__benefits {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.65rem;
 
   li {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.92rem;
+    color: $text-primary;
 
-    span:first-child {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: $text-dim;
-    }
-
-    a {
-      color: $accent-secondary;
-      transition: opacity $transition;
-
-      &:hover {
-        opacity: 0.8;
-      }
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: $accent-primary;
     }
   }
 }
 
-.about__skills {
-  background: $bg-card;
-  border: 1px solid $border-subtle;
-  border-radius: $radius-lg;
-  padding: 2rem;
+.about__pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.about__pillar {
+  padding: 1.25rem;
 
   h3 {
     font-family: $font-display;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    margin: 0.65rem 0 0.35rem;
   }
-}
 
-.skills-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.skill-item {
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    margin-bottom: 0.4rem;
+  p {
+    font-size: 0.82rem;
     color: $text-muted;
-  }
-
-  &__track {
-    height: 6px;
-    background: rgba(255, 255, 255, 0.06);
-    border-radius: $radius-full;
-    overflow: hidden;
-  }
-
-  &__fill {
-    height: 100%;
-    background: linear-gradient(90deg, $accent-primary, $accent-secondary);
-    border-radius: $radius-full;
+    line-height: 1.55;
+    margin: 0;
   }
 }
 </style>
