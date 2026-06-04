@@ -127,7 +127,7 @@ function contactApiDevPlugin(env: Record<string, string>): Plugin {
 
 function seoBuildPlugin(siteUrl: string): Plugin {
   const canonical = `${siteUrl}/`
-  const ogImage = `${siteUrl}/logo-IC.png`
+  const ogImage = `${siteUrl}/logo-ICwhite.svg` // public/logo-ICwhite.svg
   const jsonLd = JSON.stringify(buildStructuredData(siteUrl))
 
   return {

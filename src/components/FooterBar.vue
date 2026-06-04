@@ -8,7 +8,7 @@ const year = new Date().getFullYear()
 <template>
   <footer class="footer">
     <div class="container footer__inner">
-      <SiteLogo size="sm" variant="png" />
+      <SiteLogo size="sm" />
       <p>
         © {{ year }} <strong>{{ profile.name }}</strong> — Agencia de productos digitales
       </p>

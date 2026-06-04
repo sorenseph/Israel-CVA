@@ -6,21 +6,20 @@ withDefaults(
     size?: 'sm' | 'md' | 'lg'
     showText?: boolean
     text?: string
-    /** SVG para iconos pequeños; PNG para el nav y pie */
-    variant?: 'png' | 'svg'
   }>(),
-  { size: 'md', showText: false, variant: 'png' },
+  { size: 'md', showText: false },
 )
+
+const markHeights = { sm: 28, md: 36, lg: 44 } as const
 </script>
 
 <template>
   <span class="site-logo" :class="[`site-logo--${size}`, { 'site-logo--with-text': showText }]">
     <img
-      :src="variant === 'svg' ? brand.logoSvg : brand.logoPng"
+      :src="brand.logo"
       :alt="brand.alt"
       class="site-logo__mark"
-      width="36"
-      height="36"
+      :style="{ height: `${markHeights[size]}px` }"
       decoding="async"
       draggable="false"
     />
@@ -38,26 +37,23 @@ withDefaults(
   font-family: $font-display;
   font-weight: 700;
   line-height: 1;
+  min-height: 36px;
 }
 
 .site-logo__mark {
   display: block;
   width: auto;
-  height: auto;
+  min-width: 28px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
-.site-logo--sm .site-logo__mark {
-  max-height: 28px;
+.site-logo--sm {
+  min-height: 28px;
 }
 
-.site-logo--md .site-logo__mark {
-  max-height: 36px;
-}
-
-.site-logo--lg .site-logo__mark {
-  max-height: 44px;
+.site-logo--lg {
+  min-height: 44px;
 }
 
 .site-logo__text {

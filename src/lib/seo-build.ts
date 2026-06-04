@@ -1,4 +1,5 @@
 import { profile } from '../data/cv'
+import { publicLogoPath } from '../data/brand'
 import { faqItems } from '../data/landing'
 
 export const DEFAULT_SITE_URL = 'https://www.studioicva.com'
@@ -8,7 +9,7 @@ export function normalizeSiteUrl(url?: string): string {
 }
 
 export function buildStructuredData(siteUrl: string) {
-  const image = `${siteUrl}/logo-IC.png`
+  const image = `${siteUrl}${publicLogoPath}`
   const description =
     'Studio ICVA — agencia de productos digitales. Sitios web, webapps, SaaS, e-commerce, CRM, plataformas de servicios y apps móviles a medida.'
 

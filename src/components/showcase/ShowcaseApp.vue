@@ -41,7 +41,7 @@ const pipeline = computed(() => [
   <motion.div class="studio" :class="{ 'studio--collapsed': sidebarCollapsed }" layout>
     <aside class="studio__sidebar">
       <div class="studio__brand">
-        <SiteLogo class="studio__logo" size="sm" variant="svg" />
+        <SiteLogo class="studio__logo" size="sm" />
         <span v-if="!sidebarCollapsed" class="studio__brand-text">Studio ICVA</span>
       </div>
       <nav class="studio__nav">
@@ -75,7 +75,7 @@ const pipeline = computed(() => [
             <span v-if="cartItems" class="studio__cart-count">{{ cartItems }}</span>
           </button>
           <div class="studio__avatar">
-            <SiteLogo size="sm" variant="png" />
+            <SiteLogo size="sm" />
           </div>
         </div>
       </header>
