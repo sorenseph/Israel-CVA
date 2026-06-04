@@ -8,6 +8,11 @@ export type ContactSubmitResult = {
   emailSent: boolean
 }
 
+const useSupabaseEmail =
+  import.meta.env.VITE_CONTACT_USE_SUPABASE_FUNCTION === 'true'
+
+const web3formsKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined
+
 async function saveLead(payload: ContactPayload): Promise<void> {
   if (!supabase) return
   const { error } = await supabase.from('contact_leads').insert({
@@ -27,6 +32,29 @@ async function sendViaApiRoute(payload: ContactPayload): Promise<boolean> {
   const data = (await res.json()) as { ok?: boolean; error?: string }
   if (!res.ok) throw new Error(data.error ?? 'No se pudo enviar el correo')
   return Boolean(data.ok)
+}
+
+async function sendViaWeb3Forms(payload: ContactPayload): Promise<boolean> {
+  if (!web3formsKey?.trim()) return false
+
+  const res = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      access_key: web3formsKey.trim(),
+      subject: `Studio ICVA — mensaje de ${payload.name}`,
+      from_name: payload.name,
+      email: payload.email,
+      phone: payload.phone,
+      message: payload.message,
+    }),
+  })
+
+  const data = (await res.json()) as { success?: boolean; message?: string }
+  if (!res.ok || !data.success) {
+    throw new Error(data.message ?? 'No se pudo enviar el mensaje')
+  }
+  return true
 }
 
 async function sendViaSupabaseFunction(payload: ContactPayload): Promise<boolean> {
@@ -52,33 +80,37 @@ export async function submitContactForm(payload: ContactPayload): Promise<Contac
   const validationError = validateContactForm(trimmed)
   if (validationError) throw new Error(validationError)
 
+  const errors: string[] = []
   let emailSent = false
-  let apiError: Error | null = null
 
   try {
     emailSent = await sendViaApiRoute(trimmed)
   } catch (err) {
-    apiError = err instanceof Error ? err : new Error('Error al enviar')
+    errors.push(err instanceof Error ? err.message : 'API de contacto no disponible')
   }
 
-  if (!emailSent && isSupabaseConfigured) {
+  if (!emailSent && web3formsKey?.trim()) {
+    try {
+      emailSent = await sendViaWeb3Forms(trimmed)
+    } catch (err) {
+      errors.push(err instanceof Error ? err.message : 'Web3Forms falló')
+    }
+  }
+
+  if (!emailSent && useSupabaseEmail && isSupabaseConfigured) {
     try {
       emailSent = await sendViaSupabaseFunction(trimmed)
     } catch (err) {
-      throw apiError ?? (err instanceof Error ? err : new Error('No se pudo enviar el mensaje'))
+      errors.push(err instanceof Error ? err.message : 'Función send-contact no disponible')
     }
   }
 
   if (!emailSent) {
-    throw (
-      apiError ??
-      new Error(
-        'No se pudo enviar el mensaje. Añade RESEND_API_KEY en .env.local (desarrollo) o en Vercel.',
-      )
-    )
+    const hint =
+      errors[0] ??
+      'Configura RESEND_API_KEY en Vercel (/api/contact) o VITE_WEB3FORMS_ACCESS_KEY en el deploy.'
+    throw new Error(hint)
   }
-
-  if (!emailSent) throw new Error('No se pudo enviar el correo.')
 
   let savedToDb = false
   if (isSupabaseConfigured) {
