@@ -1,20 +1,25 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
-import { testimonials } from '../data/landing'
+import { useLocale } from '../i18n'
 import SectionTitle from './ui/SectionTitle.vue'
 import AnimateIn from './ui/AnimateIn.vue'
+
+const { messages } = useLocale()
 </script>
 
 <template>
   <section id="testimonios" class="testimonials section-block">
     <div class="container">
       <AnimateIn>
-        <SectionTitle label="Confianza" title="Lo que dicen los equipos" />
+        <SectionTitle
+          :label="messages.sections.testimonials.label"
+          :title="messages.sections.testimonials.title"
+        />
       </AnimateIn>
 
       <div class="testimonials__grid">
         <motion.blockquote
-          v-for="(t, i) in testimonials"
+          v-for="(t, i) in messages.testimonials"
           :key="t.author"
           class="testimonials__card glass-panel"
           :initial="{ opacity: 0, y: 32 }"

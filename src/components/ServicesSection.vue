@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
-import { services } from '../data/landing'
+import { useLocale } from '../i18n'
+import { serviceLotties } from '../data/landing'
 import SectionTitle from './ui/SectionTitle.vue'
 import AnimateIn from './ui/AnimateIn.vue'
 import SectionLottie from './illustrations/SectionLottie.vue'
 import type { LottieIconKey } from '../data/lottie-icons'
+
+const { messages } = useLocale()
 </script>
 
 <template>
@@ -12,15 +15,15 @@ import type { LottieIconKey } from '../data/lottie-icons'
     <div class="container">
       <AnimateIn>
         <SectionTitle
-          label="Servicios"
-          title="Productos digitales a tu medida"
-          subtitle="Sitios, webapps, SaaS, e-commerce, CRM y apps móviles — desde la idea hasta el lanzamiento."
+          :label="messages.sections.services.label"
+          :title="messages.sections.services.title"
+          :subtitle="messages.sections.services.subtitle"
         />
       </AnimateIn>
 
       <div class="services__grid">
         <motion.article
-          v-for="(item, i) in services"
+          v-for="(item, i) in messages.services"
           :key="item.title"
           class="services__card glass-panel"
           :initial="{ opacity: 0, y: 40 }"
@@ -31,8 +34,8 @@ import type { LottieIconKey } from '../data/lottie-icons'
         >
           <div class="services__icon">
             <SectionLottie
-              :key="item.lottie"
-              :name="item.lottie as LottieIconKey"
+              :key="serviceLotties[i]"
+              :name="serviceLotties[i] as LottieIconKey"
             />
           </div>
           <span class="services__num">{{ item.num }}</span>

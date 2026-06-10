@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
+import { useLocale } from '../i18n'
 import SectionTitle from './ui/SectionTitle.vue'
 import ShowcaseApp from './showcase/ShowcaseApp.vue'
 import GradientButton from './ui/GradientButton.vue'
 import AnimateIn from './ui/AnimateIn.vue'
+
+const { messages } = useLocale()
 </script>
 
 <template>
@@ -11,13 +14,13 @@ import AnimateIn from './ui/AnimateIn.vue'
     <div class="container showcase__wrap">
       <AnimateIn>
         <SectionTitle
-          label="Demo interactiva"
-          title="Así se ve un producto en vivo"
-          subtitle="Explora tienda, checkout, panel y CRM en un solo entorno de demostración."
+          :label="messages.sections.showcase.label"
+          :title="messages.sections.showcase.title"
+          :subtitle="messages.sections.showcase.subtitle"
         />
         <div class="showcase__cta">
-          <GradientButton href="#contacto">Quiero algo así</GradientButton>
-          <GradientButton href="#proyectos" variant="outline">Ver tipos de proyecto</GradientButton>
+          <GradientButton href="#contacto">{{ messages.sections.showcase.ctaPrimary }}</GradientButton>
+          <GradientButton href="#proyectos" variant="outline">{{ messages.sections.showcase.ctaSecondary }}</GradientButton>
         </div>
       </AnimateIn>
 

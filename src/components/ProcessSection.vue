@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
-import { processSteps } from '../data/landing'
+import { useLocale } from '../i18n'
 import SectionTitle from './ui/SectionTitle.vue'
 import AnimateIn from './ui/AnimateIn.vue'
+
+const { messages } = useLocale()
 </script>
 
 <template>
@@ -10,15 +12,15 @@ import AnimateIn from './ui/AnimateIn.vue'
     <div class="container">
       <AnimateIn>
         <SectionTitle
-          label="Proceso"
-          title="Cómo trabajamos juntos"
-          subtitle="Metodología clara, entregas visibles y comunicación constante."
+          :label="messages.sections.process.label"
+          :title="messages.sections.process.title"
+          :subtitle="messages.sections.process.subtitle"
         />
       </AnimateIn>
 
       <div class="process__track">
         <motion.div
-          v-for="(step, i) in processSteps"
+          v-for="(step, i) in messages.processSteps"
           :key="step.step"
           class="process__step"
           :initial="{ opacity: 0, x: -24 }"

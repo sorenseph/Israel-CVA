@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { motion } from 'motion-v'
+import { useLocale } from '../../i18n'
 import { supabase, isSupabaseConfigured, type DemoStats } from '../../lib/supabase'
+
+const { messages } = useLocale()
 
 const fallback: DemoStats = {
   id: 1,
@@ -14,6 +17,12 @@ const fallback: DemoStats = {
 const stats = ref<DemoStats>(fallback)
 const live = ref(isSupabaseConfigured)
 
+const metricItems = computed(() => [
+  { label: messages.value.demos.metricCounter.projects, value: stats.value.projects_count, suffix: '' },
+  { label: messages.value.demos.metricCounter.clients, value: stats.value.clients_count, suffix: '' },
+  { label: messages.value.demos.metricCounter.uptime, value: stats.value.uptime_percent, suffix: '%' },
+])
+
 onMounted(async () => {
   if (!supabase) return
   const { data } = await supabase.from('demo_stats').select('*').eq('id', 1).maybeSingle()
@@ -25,15 +34,11 @@ onMounted(async () => {
   <div class="demo-metrics">
     <div class="demo-metrics__head">
       <span class="demo-metrics__dot" :class="{ 'demo-metrics__dot--live': live }" />
-      <span>{{ live ? 'Datos en vivo' : 'Vista de demostración' }}</span>
+      <span>{{ live ? messages.demos.metricCounter.liveData : messages.demos.metricCounter.demoView }}</span>
     </div>
     <div class="demo-metrics__grid">
       <motion.div
-        v-for="(item, i) in [
-          { label: 'Proyectos', value: stats.projects_count, suffix: '' },
-          { label: 'Clientes', value: stats.clients_count, suffix: '' },
-          { label: 'Uptime', value: stats.uptime_percent, suffix: '%' },
-        ]"
+        v-for="(item, i) in metricItems"
         :key="item.label"
         class="demo-metrics__item"
         :initial="{ opacity: 0, y: 12 }"

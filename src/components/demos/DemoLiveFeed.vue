@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { motion, AnimatePresence } from 'motion-v'
+import { useLocale } from '../../i18n'
 import { supabase, isSupabaseConfigured, type ContactLead } from '../../lib/supabase'
+
+const { messages } = useLocale()
 
 const items = ref<ContactLead[]>([])
 const channelReady = ref(false)
@@ -62,7 +65,7 @@ onUnmounted(() => {
   <div class="demo-feed">
     <div class="demo-feed__head">
       <span class="demo-feed__dot" :class="{ 'demo-feed__dot--live': channelReady || isSupabaseConfigured }" />
-      Leads en tiempo real
+      {{ messages.demos.liveFeed.title }}
     </div>
     <ul class="demo-feed__list">
       <AnimatePresence>
@@ -79,7 +82,7 @@ onUnmounted(() => {
         </motion.li>
       </AnimatePresence>
     </ul>
-    <p v-if="!isSupabaseConfigured" class="demo-feed__hint">Vista de demostración — los mensajes reales aparecen al enviar el formulario de contacto</p>
+    <p v-if="!isSupabaseConfigured" class="demo-feed__hint">{{ messages.demos.liveFeed.hint }}</p>
   </div>
 </template>
 

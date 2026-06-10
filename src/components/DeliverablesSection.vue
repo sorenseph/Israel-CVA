@@ -1,10 +1,21 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { motion } from 'motion-v'
-import { projectDeliverables } from '../data/cv'
+import { useLocale } from '../i18n'
+import { deliverableMeta } from '../data/cv'
 import SectionTitle from './ui/SectionTitle.vue'
 import AnimateIn from './ui/AnimateIn.vue'
 import SectionLottie from './illustrations/SectionLottie.vue'
 import type { LottieIconKey } from '../data/lottie-icons'
+
+const { messages } = useLocale()
+
+const deliverables = computed(() =>
+  messages.value.projectDeliverables.map((item, i) => ({
+    ...item,
+    ...deliverableMeta[i],
+  })),
+)
 </script>
 
 <template>
@@ -12,15 +23,15 @@ import type { LottieIconKey } from '../data/lottie-icons'
     <div class="container">
       <AnimateIn>
         <SectionTitle
-          label="Proyectos"
-          title="Lo que podemos construir contigo"
-          subtitle="Tipos de producto que lanzamos con marcas, startups y equipos corporativos."
+          :label="messages.sections.deliverables.label"
+          :title="messages.sections.deliverables.title"
+          :subtitle="messages.sections.deliverables.subtitle"
         />
       </AnimateIn>
 
       <div class="deliverables__grid">
         <motion.article
-          v-for="(item, i) in projectDeliverables"
+          v-for="(item, i) in deliverables"
           :key="item.title"
           class="deliverables__card glass-panel"
           :class="`deliverables__card--${item.span}`"

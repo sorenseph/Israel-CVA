@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useLocale } from '../i18n'
 import { submitContactForm } from '../lib/contact-form'
 import {
   CONTACT_LIMITS,
@@ -15,6 +16,8 @@ import SectionTitle from './ui/SectionTitle.vue'
 import GradientButton from './ui/GradientButton.vue'
 import FormNotice from './ui/FormNotice.vue'
 import AnimateIn from './ui/AnimateIn.vue'
+
+const { messages } = useLocale()
 
 const NAV_KEYS = new Set([
   'Backspace',
@@ -78,7 +81,7 @@ async function onSubmit() {
   form.value.phone = sanitizePhone(form.value.phone)
   form.value.message = sanitizeMessage(form.value.message)
 
-  const clientError = validateContactForm(form.value)
+  const clientError = validateContactForm(form.value, messages.value.contact.validation)
   if (clientError) {
     status.value = 'error'
     errorMsg.value = clientError
@@ -91,7 +94,7 @@ async function onSubmit() {
     form.value = { name: '', email: '', phone: '', message: '' }
   } catch (err) {
     status.value = 'error'
-    errorMsg.value = err instanceof Error ? err.message : 'Error al enviar el mensaje'
+    errorMsg.value = err instanceof Error ? err.message : messages.value.contact.form.submitError
   }
 }
 </script>
@@ -101,22 +104,22 @@ async function onSubmit() {
     <div class="container contact__inner">
       <AnimateIn>
         <SectionTitle
-          label="Contacto"
-          title="Cuéntanos tu proyecto"
-          subtitle="Completa el formulario y te respondemos en menos de 24 horas con los siguientes pasos."
+          :label="messages.sections.contact.label"
+          :title="messages.sections.contact.title"
+          :subtitle="messages.sections.contact.subtitle"
         />
 
         <form class="contact__form" @submit.prevent="onSubmit">
           <div class="contact__row">
             <div class="contact__field">
-              <label for="name">Nombre</label>
+              <label for="name">{{ messages.contact.form.nameLabel }}</label>
               <input
                 id="name"
                 :value="form.name"
                 type="text"
                 required
                 :maxlength="CONTACT_LIMITS.nameMax"
-                placeholder="Tu nombre o empresa"
+                :placeholder="messages.contact.form.namePlaceholder"
                 autocomplete="name"
                 @input="onNameInput"
                 @keydown="onNameKeydown"
@@ -124,7 +127,7 @@ async function onSubmit() {
               <span class="contact__hint">{{ form.name.length }}/{{ CONTACT_LIMITS.nameMax }}</span>
             </div>
             <div class="contact__field">
-              <label for="phone">Teléfono</label>
+              <label for="phone">{{ messages.contact.form.phoneLabel }}</label>
               <input
                 id="phone"
                 :value="form.phone"
@@ -133,7 +136,7 @@ async function onSubmit() {
                 pattern="[0-9]{10}"
                 required
                 :maxlength="CONTACT_LIMITS.phoneDigits"
-                placeholder="10 dígitos"
+                :placeholder="messages.contact.form.phonePlaceholder"
                 autocomplete="tel"
                 @input="onPhoneInput"
                 @keydown="onPhoneKeydown"
@@ -144,14 +147,14 @@ async function onSubmit() {
           </div>
 
           <div class="contact__field">
-            <label for="email">Correo</label>
+            <label for="email">{{ messages.contact.form.emailLabel }}</label>
             <input
               id="email"
               :value="form.email"
               type="text"
               required
               :maxlength="CONTACT_LIMITS.emailMax"
-              placeholder="tu@email.com"
+              :placeholder="messages.contact.form.emailPlaceholder"
               autocomplete="email"
               @input="onEmailInput"
               @keydown="onEmailKeydown"
@@ -160,32 +163,32 @@ async function onSubmit() {
           </div>
 
           <div class="contact__field">
-            <label for="message">Mensaje</label>
+            <label for="message">{{ messages.contact.form.messageLabel }}</label>
             <textarea
               id="message"
               :value="form.message"
               required
               rows="5"
               :maxlength="CONTACT_LIMITS.messageMax"
-              placeholder="¿Qué producto necesitas? (webapp, tienda, CRM, app móvil…) Plazos y objetivos."
+              :placeholder="messages.contact.form.messagePlaceholder"
               @input="onMessageInput"
             />
           </div>
 
           <GradientButton tag="button" variant="primary" :disabled="status === 'loading'">
-            {{ status === 'loading' ? 'Enviando…' : 'Enviar mensaje' }}
+            {{ status === 'loading' ? messages.contact.form.submitting : messages.contact.form.submit }}
           </GradientButton>
 
           <FormNotice
             :show="status === 'success'"
             variant="success"
-            title="Mensaje enviado"
-            message="Recibimos tu solicitud. Te contactaremos en menos de 24 horas."
+            :title="messages.contact.form.successTitle"
+            :message="messages.contact.form.successMessage"
           />
           <FormNotice
             :show="status === 'error'"
             variant="error"
-            title="No se pudo enviar"
+            :title="messages.contact.form.errorTitle"
             :message="errorMsg"
           />
         </form>

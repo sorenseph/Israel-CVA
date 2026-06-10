@@ -1,3 +1,6 @@
+import type { ContactValidationMessages } from '../i18n/types'
+import esMessages from '../i18n/messages/es'
+
 export const CONTACT_LIMITS = {
   nameMax: 50,
   emailMax: 50,
@@ -5,11 +8,8 @@ export const CONTACT_LIMITS = {
   messageMax: 2000,
 } as const
 
-/** Letras, números y caracteres habituales en correos (@ . _ - +) */
 const EMAIL_CHARS = /^[a-zA-Z0-9@._+\-]+$/
-
 const NAME_CHARS = /^[\p{L}\p{N}\s'.-]+$/u
-
 const MESSAGE_CHARS = /^[\p{L}\p{N}\s.,;:!?¿¡()\-"'\n\r]+$/u
 
 export type ContactFormFields = {
@@ -50,43 +50,30 @@ export function isAllowedPhoneKey(key: string): boolean {
   return /^\d$/.test(key)
 }
 
-export function validateContactForm(fields: ContactFormFields): string | null {
+export function validateContactForm(
+  fields: ContactFormFields,
+  messages: ContactValidationMessages = esMessages.contact.validation,
+): string | null {
   const name = fields.name.trim()
   const email = fields.email.trim()
   const phone = fields.phone.trim()
   const message = fields.message.trim()
 
-  if (!name) return 'Escribe tu nombre.'
-  if (name.length > CONTACT_LIMITS.nameMax) {
-    return `El nombre no puede superar ${CONTACT_LIMITS.nameMax} caracteres.`
-  }
-  if (!NAME_CHARS.test(name)) {
-    return 'El nombre solo puede incluir letras, números, espacios, punto, guion y apóstrofo.'
-  }
+  if (!name) return messages.nameRequired
+  if (name.length > CONTACT_LIMITS.nameMax) return messages.nameMaxLength
+  if (!NAME_CHARS.test(name)) return messages.nameInvalidChars
 
-  if (!email) return 'Escribe tu correo.'
-  if (email.length > CONTACT_LIMITS.emailMax) {
-    return `El correo no puede superar ${CONTACT_LIMITS.emailMax} caracteres.`
-  }
-  if (!EMAIL_CHARS.test(email)) {
-    return 'El correo solo puede incluir letras, números y @ . _ - +'
-  }
-  if (!email.includes('@') || email.indexOf('@') === 0) {
-    return 'Ingresa un correo válido.'
-  }
+  if (!email) return messages.emailRequired
+  if (email.length > CONTACT_LIMITS.emailMax) return messages.emailMaxLength
+  if (!EMAIL_CHARS.test(email)) return messages.emailInvalidChars
+  if (!email.includes('@') || email.indexOf('@') === 0) return messages.emailInvalid
 
-  if (!phone) return 'Escribe tu teléfono.'
-  if (!/^\d{10}$/.test(phone)) {
-    return 'El teléfono debe tener exactamente 10 dígitos numéricos.'
-  }
+  if (!phone) return messages.phoneRequired
+  if (!/^\d{10}$/.test(phone)) return messages.phoneInvalid
 
-  if (!message) return 'Escribe tu mensaje.'
-  if (message.length > CONTACT_LIMITS.messageMax) {
-    return `El mensaje no puede superar ${CONTACT_LIMITS.messageMax} caracteres.`
-  }
-  if (!MESSAGE_CHARS.test(message)) {
-    return 'El mensaje contiene caracteres no permitidos.'
-  }
+  if (!message) return messages.messageRequired
+  if (message.length > CONTACT_LIMITS.messageMax) return messages.messageMaxLength
+  if (!MESSAGE_CHARS.test(message)) return messages.messageInvalidChars
 
   return null
 }

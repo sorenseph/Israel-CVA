@@ -1,5 +1,9 @@
 import type { LottieIconKey } from './lottie-icons'
 
+export const serviceLotties = ['wardrobe', 'search', 'free-shopping', 'fist-bump'] as const satisfies readonly LottieIconKey[]
+
+export const pillarLotties = ['search', 'wardrobe', 'card', 'shopping-bag'] as const satisfies readonly LottieIconKey[]
+
 export const services: {
   num: string
   title: string

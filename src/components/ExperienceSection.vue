@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
-import { experience } from '../data/cv'
+import { useLocale } from '../i18n'
 import SectionTitle from './ui/SectionTitle.vue'
 import AnimateIn from './ui/AnimateIn.vue'
+
+const { messages } = useLocale()
 </script>
 
 <template>
@@ -10,15 +12,15 @@ import AnimateIn from './ui/AnimateIn.vue'
     <div class="container">
       <AnimateIn>
         <SectionTitle
-          label="Trayectoria"
-          title="Proyectos y contextos"
-          subtitle="Experiencia construyendo productos para finanzas, retail, agencias y equipos corporativos."
+          :label="messages.sections.experience.label"
+          :title="messages.sections.experience.title"
+          :subtitle="messages.sections.experience.subtitle"
         />
       </AnimateIn>
 
       <div class="timeline">
         <motion.article
-          v-for="(job, i) in experience"
+          v-for="(job, i) in messages.experience"
           :key="`${job.company}-${job.period}`"
           class="timeline__item"
           :initial="{ opacity: 0, x: -20 }"

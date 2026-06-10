@@ -2,20 +2,22 @@
 import { ref } from 'vue'
 import { motion } from 'motion-v'
 import { useIntersectionObserver } from '@vueuse/core'
-import { stats } from '../data/landing'
+import { useLocale } from '../i18n'
 import SectionTitle from './ui/SectionTitle.vue'
 import AnimateIn from './ui/AnimateIn.vue'
 
+const { messages } = useLocale()
+
 const root = ref<HTMLElement | null>(null)
 const started = ref(false)
-const display = ref(stats.map(() => 0))
+const display = ref(messages.value.stats.map(() => 0))
 
 useIntersectionObserver(
   root,
   ([entry]) => {
     if (entry?.isIntersecting && !started.value) {
       started.value = true
-      stats.forEach((s, i) => animateTo(s.value, i))
+      messages.value.stats.forEach((s, i) => animateTo(s.value, i))
     }
   },
   { threshold: 0.3 },
@@ -40,12 +42,15 @@ function animateTo(target: number, index: number) {
   <section ref="root" class="stats section-block">
     <div class="container">
       <AnimateIn>
-        <SectionTitle label="Impacto" title="Números que respaldan el trabajo" />
+        <SectionTitle
+          :label="messages.sections.stats.label"
+          :title="messages.sections.stats.title"
+        />
       </AnimateIn>
 
       <div class="stats__grid">
         <motion.div
-          v-for="(stat, i) in stats"
+          v-for="(stat, i) in messages.stats"
           :key="stat.label"
           class="stats__item glass-panel"
           :initial="{ opacity: 0, scale: 0.92 }"

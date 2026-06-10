@@ -130,6 +130,16 @@ export const projectDeliverables = [
   },
 ]
 
+/** Metadatos no traducibles para entregables (índice alineado con i18n) */
+export const deliverableMeta = [
+  { lottie: 'wardrobe', span: 'wide' },
+  { lottie: 'shopping-bag', span: 'tall' },
+  { lottie: 'free-shopping', span: 'normal' },
+  { lottie: 'qr-scan', span: 'normal' },
+  { lottie: 'card', span: 'normal' },
+  { lottie: 'fist-bump', span: 'wide' },
+] as const
+
 export const navLinks = [
   { id: 'inicio', label: 'Inicio' },
   { id: 'servicios', label: 'Servicios' },

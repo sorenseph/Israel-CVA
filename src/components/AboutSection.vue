@@ -1,10 +1,20 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { motion } from 'motion-v'
-import { profile } from '../data/cv'
-import { benefits, studioPillars } from '../data/landing'
+import { useLocale } from '../i18n'
+import { pillarLotties } from '../data/landing'
 import SectionTitle from './ui/SectionTitle.vue'
 import AnimateIn from './ui/AnimateIn.vue'
 import SectionLottie from './illustrations/SectionLottie.vue'
+
+const { messages } = useLocale()
+
+const pillars = computed(() =>
+  messages.value.studioPillars.map((pillar, i) => ({
+    ...pillar,
+    lottie: pillarLotties[i],
+  })),
+)
 </script>
 
 <template>
@@ -13,9 +23,9 @@ import SectionLottie from './illustrations/SectionLottie.vue'
       <AnimateIn>
         <div class="about__head">
           <SectionTitle
-            label="Studio"
-            title="Agencia enfocada en producto"
-            :subtitle="profile.title"
+            :label="messages.sections.about.label"
+            :title="messages.sections.about.title"
+            :subtitle="messages.profile.title"
           />
           <div class="about__head-lottie">
             <SectionLottie name="create-web" />
@@ -26,10 +36,10 @@ import SectionLottie from './illustrations/SectionLottie.vue'
       <div class="about__layout">
         <AnimateIn :delay="0.1">
           <div class="about__card glass-panel">
-            <p>{{ profile.summary }}</p>
+            <p>{{ messages.profile.summary }}</p>
             <ul class="about__benefits">
               <motion.li
-                v-for="(b, i) in benefits"
+                v-for="(b, i) in messages.benefits"
                 :key="b"
                 :initial="{ opacity: 0, x: -12 }"
                 :while-in-view="{ opacity: 1, x: 0 }"
@@ -45,7 +55,7 @@ import SectionLottie from './illustrations/SectionLottie.vue'
         <AnimateIn :delay="0.2">
           <div class="about__pillars">
             <motion.article
-              v-for="(pillar, i) in studioPillars"
+              v-for="(pillar, i) in pillars"
               :key="pillar.title"
               class="about__pillar glass-panel"
               :initial="{ opacity: 0, y: 20 }"
@@ -53,7 +63,7 @@ import SectionLottie from './illustrations/SectionLottie.vue'
               :viewport="{ once: true }"
               :transition="{ delay: i * 0.08 }"
             >
-              <SectionLottie :key="pillar.lottie" :name="pillar.lottie" size="sm" />
+              <SectionLottie :key="pillarLotties[i]" :name="pillarLotties[i]" size="sm" />
               <h3>{{ pillar.title }}</h3>
               <p>{{ pillar.text }}</p>
             </motion.article>

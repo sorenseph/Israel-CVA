@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
+import { useLocale } from '../i18n'
 import { profile } from '../data/cv'
 import { gsap, HUYML_DURATION, HUYML_EASE, HUYML_STAGGER } from '../lib/gsap-setup'
 import { splitChars } from '../lib/split-chars'
@@ -11,10 +12,7 @@ const props = defineProps<{
   introReady?: boolean
 }>()
 
-const DROP_TAGLINES = [
-  'Productos digitales de alto impacto.',
-  'Webapps, SaaS y e-commerce.',
-] as const
+const { messages } = useLocale()
 
 const sectionRef = ref<HTMLElement | null>(null)
 const titleRef = ref<HTMLElement | null>(null)
@@ -179,16 +177,16 @@ onUnmounted(() => {
   >
     <div class="hero-home__stack container">
       <div v-show="lottiePhase" class="hero-drop-taglines" aria-hidden="true">
-        <p v-for="line in DROP_TAGLINES" :key="line">{{ line }}</p>
+        <p v-for="line in messages.hero.dropTaglines" :key="line">{{ line }}</p>
       </div>
 
       <header class="hello">
-        <p class="hero-intro">{{ profile.heroLead }}</p>
+        <p class="hero-intro">{{ messages.profile.heroLead }}</p>
         <h1 ref="titleRef" class="hello-title">
           <span class="hello-title__first">{{ firstName }}</span>
           <span class="hello-title__last">{{ lastName }}</span>
         </h1>
-        <p class="hero-pitch">{{ profile.heroPitch }}</p>
+        <p class="hero-pitch">{{ messages.profile.heroPitch }}</p>
       </header>
 
       <div class="person-lottie">
@@ -196,8 +194,8 @@ onUnmounted(() => {
       </div>
 
       <div class="hero__actions">
-        <GradientButton href="#contacto">Iniciar proyecto</GradientButton>
-        <GradientButton href="#demos" variant="outline">Ver demos</GradientButton>
+        <GradientButton href="#contacto">{{ messages.hero.startProject }}</GradientButton>
+        <GradientButton href="#demos" variant="outline">{{ messages.hero.viewDemos }}</GradientButton>
       </div>
     </div>
 
@@ -389,7 +387,7 @@ onUnmounted(() => {
 
   @media (max-width: 768px) {
     left: max(1rem, env(safe-area-inset-left, 0px));
-    bottom: max(1.15rem, env(safe-area-inset-bottom, 0px));
+    bottom: max(0.25rem, env(safe-area-inset-bottom, 0px));
   }
 
   @media (min-width: 769px) {

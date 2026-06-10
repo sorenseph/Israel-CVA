@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { motion, AnimatePresence } from 'motion-v'
-import { faqItems } from '../data/landing'
+import { useLocale } from '../i18n'
 import SectionTitle from './ui/SectionTitle.vue'
 import AnimateIn from './ui/AnimateIn.vue'
+
+const { messages } = useLocale()
 
 const openIndex = ref<number | null>(0)
 
@@ -16,12 +18,15 @@ function toggle(i: number) {
   <section id="faq" class="faq section-block">
     <div class="container faq__inner">
       <AnimateIn>
-        <SectionTitle label="FAQ" title="Preguntas frecuentes" />
+        <SectionTitle
+          :label="messages.sections.faq.label"
+          :title="messages.sections.faq.title"
+        />
       </AnimateIn>
 
       <div class="faq__list">
         <motion.div
-          v-for="(item, i) in faqItems"
+          v-for="(item, i) in messages.faqItems"
           :key="item.q"
           class="faq__item"
           :initial="{ opacity: 0, y: 16 }"

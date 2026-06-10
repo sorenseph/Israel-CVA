@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { motion } from 'motion-v'
+import { useLocale } from '../i18n'
 import { profile } from '../data/cv'
 import GradientButton from './ui/GradientButton.vue'
 import AnimateIn from './ui/AnimateIn.vue'
+
+const { messages } = useLocale()
 </script>
 
 <template>
@@ -14,11 +17,11 @@ import AnimateIn from './ui/AnimateIn.vue'
           :while-in-view="{ scale: [0.98, 1] }"
           :viewport="{ once: true }"
         >
-          <h2>¿Listo para lanzar tu producto digital?</h2>
-          <p>Cuéntanos tu idea y te respondemos en menos de 24 horas con los siguientes pasos.</p>
+          <h2>{{ messages.sections.cta.title }}</h2>
+          <p>{{ messages.sections.cta.subtitle }}</p>
           <div class="cta__actions">
-            <GradientButton href="#contacto">Hablemos</GradientButton>
-            <GradientButton :href="`mailto:${profile.email}`" variant="outline">Email directo</GradientButton>
+            <GradientButton href="#contacto">{{ messages.sections.cta.talkBtn }}</GradientButton>
+            <GradientButton :href="`mailto:${profile.email}`" variant="outline">{{ messages.sections.cta.directEmailBtn }}</GradientButton>
           </div>
         </motion.div>
       </AnimateIn>

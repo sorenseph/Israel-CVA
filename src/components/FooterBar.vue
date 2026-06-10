@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useLocale } from '../i18n'
 import { profile } from '../data/cv'
 import SiteLogo from './ui/SiteLogo.vue'
 import SocialLinks from './ui/SocialLinks.vue'
 
+const { messages } = useLocale()
 const year = new Date().getFullYear()
 </script>
 
@@ -11,7 +13,7 @@ const year = new Date().getFullYear()
     <div class="container footer__inner">
       <SiteLogo size="sm" />
       <p>
-        © {{ year }} <strong>{{ profile.name }}</strong> — Agencia de productos digitales
+        © {{ year }} <strong>{{ profile.name }}</strong> — {{ messages.footer.tagline }}
       </p>
       <SocialLinks variant="footer" />
     </div>
