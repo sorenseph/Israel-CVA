@@ -5,6 +5,7 @@ import { gsap, HUYML_DURATION, HUYML_EASE, HUYML_STAGGER } from '../lib/gsap-set
 import { splitChars } from '../lib/split-chars'
 import GradientButton from './ui/GradientButton.vue'
 import HeroLottie from './illustrations/HeroLottie.vue'
+import SocialLinks from './ui/SocialLinks.vue'
 
 const props = defineProps<{
   introReady?: boolean
@@ -37,15 +38,17 @@ function getTargets() {
   const chars = titleRef.value?.querySelectorAll('.char')
   const copy = sectionRef.value?.querySelectorAll('.hero-intro, .hero-pitch')
   const actions = sectionRef.value?.querySelector('.hero__actions')
-  return { chars, copy, actions }
+  const social = sectionRef.value?.querySelector('.hero-home__social')
+  return { chars, copy, actions, social }
 }
 
 function showFinalState() {
-  const { chars, copy, actions } = getTargets()
+  const { chars, copy, actions, social } = getTargets()
   if (titleRef.value) gsap.set(titleRef.value, { visibility: 'visible', opacity: 1 })
   if (chars?.length) gsap.set(chars, { yPercent: 0, opacity: 1 })
   if (copy?.length) gsap.set(copy, { opacity: 1, y: 0 })
   if (actions) gsap.set(actions, { opacity: 1, y: 0 })
+  if (social) gsap.set(social, { opacity: 1, y: 0 })
 }
 
 async function waitForLottieRef() {
@@ -58,7 +61,7 @@ async function waitForLottieRef() {
 }
 
 function runTextIntro() {
-  const { chars, copy, actions } = getTargets()
+  const { chars, copy, actions, social } = getTargets()
 
   if (titleRef.value) {
     gsap.set(titleRef.value, { visibility: 'visible', opacity: 1 })
@@ -72,6 +75,7 @@ function runTextIntro() {
   gsap.set(chars, { yPercent: 110, opacity: 1 })
   if (copy?.length) gsap.set(copy, { opacity: 0, y: 16 })
   if (actions) gsap.set(actions, { opacity: 0, y: 20 })
+  if (social) gsap.set(social, { opacity: 0, y: 8 })
 
   introTimeline?.kill()
   introTimeline = gsap.timeline({
@@ -95,6 +99,14 @@ function runTextIntro() {
 
   if (actions) {
     introTimeline.to(actions, { opacity: 1, y: 0, duration: HUYML_DURATION.reveal }, '-=0.32')
+  }
+
+  if (social) {
+    introTimeline.to(
+      social,
+      { opacity: 1, y: 0, duration: HUYML_DURATION.reveal * 0.85 },
+      '-=0.5',
+    )
   }
 }
 
@@ -188,6 +200,10 @@ onUnmounted(() => {
         <GradientButton href="#demos" variant="outline">Ver demos</GradientButton>
       </div>
     </div>
+
+    <div class="hero-home__social">
+      <SocialLinks variant="hero" />
+    </div>
   </section>
 </template>
 
@@ -255,7 +271,8 @@ onUnmounted(() => {
 }
 
 .hero-home--lottie .hello,
-.hero-home--lottie .hero__actions {
+.hero-home--lottie .hero__actions,
+.hero-home--lottie .hero-home__social {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
@@ -360,5 +377,23 @@ onUnmounted(() => {
   z-index: 2;
   position: relative;
   flex-shrink: 0;
+}
+
+.hero-home__social {
+  position: absolute;
+  left: max(1.25rem, env(safe-area-inset-left, 0px));
+  bottom: clamp(1rem, 3vh, 1.75rem);
+  z-index: 3;
+  opacity: 0;
+  pointer-events: auto;
+
+  @media (max-width: 768px) {
+    left: max(1rem, env(safe-area-inset-left, 0px));
+    bottom: max(1.15rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  @media (min-width: 769px) {
+    left: max(1.5rem, env(safe-area-inset-left, 0px));
+  }
 }
 </style>

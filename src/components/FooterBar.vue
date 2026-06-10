@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { profile } from '../data/cv'
 import SiteLogo from './ui/SiteLogo.vue'
+import SocialLinks from './ui/SocialLinks.vue'
 
 const year = new Date().getFullYear()
 </script>
@@ -12,6 +13,7 @@ const year = new Date().getFullYear()
       <p>
         © {{ year }} <strong>{{ profile.name }}</strong> — Agencia de productos digitales
       </p>
+      <SocialLinks variant="footer" />
     </div>
   </footer>
 </template>

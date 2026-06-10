@@ -1,4 +1,4 @@
-import { profile } from '../data/cv'
+import { profile, socialLinks } from '../data/cv'
 import { publicLogoPath } from '../data/brand'
 import { faqItems } from '../data/landing'
 
@@ -40,6 +40,7 @@ export function buildStructuredData(siteUrl: string) {
           'Aplicaciones móviles',
           'Plataformas digitales',
         ],
+        sameAs: socialLinks.map((link) => link.url),
       },
       {
         '@type': 'WebSite',

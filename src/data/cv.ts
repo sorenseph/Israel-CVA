@@ -137,3 +137,16 @@ export const navLinks = [
   { id: 'proyectos', label: 'Proyectos' },
   { id: 'sobre-mi', label: 'Studio' },
 ]
+
+export const socialLinks = [
+  {
+    id: 'instagram',
+    label: 'Instagram',
+    url: 'https://www.instagram.com/studio.icva/',
+  },
+  {
+    id: 'facebook',
+    label: 'Facebook',
+    url: 'https://www.facebook.com/profile.php?id=61590313302740',
+  },
+] as const
