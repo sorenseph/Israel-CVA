@@ -1,49 +1,6 @@
 import type { LottieIconKey } from './lottie-icons'
 
-export const serviceLotties = ['wardrobe', 'search', 'free-shopping', 'fist-bump'] as const satisfies readonly LottieIconKey[]
-
 export const pillarLotties = ['search', 'wardrobe', 'card', 'shopping-bag'] as const satisfies readonly LottieIconKey[]
-
-export const services: {
-  num: string
-  title: string
-  description: string
-  tags: string[]
-  lottie: LottieIconKey
-}[] = [
-  {
-    num: '01',
-    title: 'Sitios y landings',
-    description:
-      'Páginas de alto impacto para marcas, campañas y lanzamientos con narrativa clara y llamadas a la acción.',
-    tags: ['Branding', 'Conversión', 'SEO'],
-    lottie: 'wardrobe',
-  },
-  {
-    num: '02',
-    title: 'Webapps y SaaS',
-    description:
-      'Productos digitales con cuentas de usuario, paneles, flujos de negocio y crecimiento por etapas.',
-    tags: ['MVP', 'Escalable', 'B2B / B2C'],
-    lottie: 'search',
-  },
-  {
-    num: '03',
-    title: 'E-commerce',
-    description:
-      'Tiendas completas: catálogo, carrito, pagos, envíos y herramientas para tu equipo.',
-    tags: ['Catálogo', 'Checkout', 'Operación'],
-    lottie: 'free-shopping',
-  },
-  {
-    num: '04',
-    title: 'CRM y plataformas',
-    description:
-      'Sistemas a medida para ventas, servicio al cliente, reservas y gestión interna.',
-    tags: ['CRM', 'Automatización', 'Portal'],
-    lottie: 'fist-bump',
-  },
-]
 
 export const processSteps = [
   { step: '01', title: 'Descubrimiento', text: 'Objetivos, usuarios, alcance y prioridades del producto.' },

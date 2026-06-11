@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { motion, AnimatePresence } from 'motion-v'
 import { useLocale } from '../../i18n'
 import { supabase, isSupabaseConfigured, type ContactLead } from '../../lib/supabase'
@@ -9,28 +9,21 @@ const { messages } = useLocale()
 const items = ref<ContactLead[]>([])
 const channelReady = ref(false)
 
-const mockItems: ContactLead[] = [
-  {
-    id: '1',
-    name: 'María G.',
-    email: 'maria@startup.mx',
-    message: 'Necesito una webapp para mi startup',
+const mockItems = computed<ContactLead[]>(() =>
+  messages.value.demos.crm.mockLeads.map((lead, i) => ({
+    id: String(i + 1),
+    name: lead.name,
+    email: `lead${i + 1}@demo.io`,
+    message: lead.message,
     created_at: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    name: 'Carlos R.',
-    email: 'carlos@fintech.io',
-    message: 'Tienda en línea con panel de pedidos',
-    created_at: new Date().toISOString(),
-  },
-]
+  })),
+)
 
 let channel: ReturnType<NonNullable<typeof supabase>['channel']> | null = null
 
 onMounted(async () => {
   if (!supabase) {
-    items.value = mockItems
+    items.value = mockItems.value
     return
   }
 
@@ -40,7 +33,7 @@ onMounted(async () => {
     .order('created_at', { ascending: false })
     .limit(4)
 
-  items.value = (data as ContactLead[])?.length ? (data as ContactLead[]) : mockItems
+  items.value = (data as ContactLead[])?.length ? (data as ContactLead[]) : mockItems.value
 
   channel = supabase
     .channel('leads-feed')

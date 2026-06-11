@@ -8,6 +8,7 @@ import {
   buildStructuredData,
   normalizeSiteUrl,
 } from './src/lib/seo-build'
+import { defaultOgImage } from './src/data/seo-assets'
 const LIMITS = { nameMax: 50, emailMax: 50, messageMax: 2000 }
 const EMAIL_CHARS = /^[a-zA-Z0-9@._+\-]+$/
 const NAME_CHARS = /^[\p{L}\p{N}\s'.-]+$/u
@@ -127,7 +128,7 @@ function contactApiDevPlugin(env: Record<string, string>): Plugin {
 
 function seoBuildPlugin(siteUrl: string): Plugin {
   const canonical = `${siteUrl}/`
-  const ogImage = `${siteUrl}/logo-ICwhite.svg` // public/logo-ICwhite.svg
+  const ogImage = `${siteUrl}${defaultOgImage}`
   const jsonLd = JSON.stringify(buildStructuredData(siteUrl))
 
   return {

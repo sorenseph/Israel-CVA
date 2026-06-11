@@ -8,10 +8,10 @@ export const profile = {
   location: 'México',
   summary:
     'Diseñamos y construimos productos digitales listos para operar: sitios web, webapps, SaaS, tiendas en línea, CRM, plataformas de servicios y apps móviles. Trabajamos contigo desde la idea hasta el lanzamiento, con entregas claras, diseño cuidado y foco en conversión y experiencia de usuario.',
-  heroLead:
-    'Agencia de productos digitales.',
+  heroLead: 'Productos digitales para negocios que quieren crecer.',
   heroPitch:
-    'Webapps, SaaS, e-commerce, CRM y apps móviles — de la idea al lanzamiento con un solo equipo.',
+    'Más clientes para tu negocio y automatización — de la idea al lanzamiento con un solo equipo.',
+  whatsapp: '525539134480',
 }
 
 export const experience = [
@@ -132,19 +132,20 @@ export const projectDeliverables = [
 
 /** Metadatos no traducibles para entregables (índice alineado con i18n) */
 export const deliverableMeta = [
-  { lottie: 'wardrobe', span: 'wide' },
-  { lottie: 'shopping-bag', span: 'tall' },
-  { lottie: 'free-shopping', span: 'normal' },
-  { lottie: 'qr-scan', span: 'normal' },
-  { lottie: 'card', span: 'normal' },
-  { lottie: 'fist-bump', span: 'wide' },
+  { lottie: 'wardrobe', span: 'wide', slug: 'webapp', accent: '#6366f1', icon: 'layers' },
+  { lottie: 'shopping-bag', span: 'tall', slug: 'tienda', accent: '#ec4899', icon: 'store' },
+  { lottie: 'free-shopping', span: 'normal', slug: 'operaciones', accent: '#f59e0b', icon: 'package' },
+  { lottie: 'qr-scan', span: 'normal', slug: 'movil', accent: '#14b8a6', icon: 'mobile' },
+  { lottie: 'card', span: 'normal', slug: 'pagos', accent: '#8b5cf6', icon: 'payments' },
+  { lottie: 'fist-bump', span: 'wide', slug: 'crm', accent: '#0e85ff', icon: 'crm' },
 ] as const
+
+export type DeliverableSlug = (typeof deliverableMeta)[number]['slug']
 
 export const navLinks = [
   { id: 'inicio', label: 'Inicio' },
-  { id: 'servicios', label: 'Servicios' },
-  { id: 'demos', label: 'Demos' },
   { id: 'proyectos', label: 'Proyectos' },
+  { id: 'demos', label: 'Demos' },
   { id: 'sobre-mi', label: 'Studio' },
 ]
 

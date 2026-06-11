@@ -4,37 +4,47 @@ import { motion } from 'motion-v'
 import DemoMetricCounter from '../demos/DemoMetricCounter.vue'
 import DemoCheckout from '../demos/DemoCheckout.vue'
 import DemoAuthCard from '../demos/DemoAuthCard.vue'
-import DemoLiveFeed from '../demos/DemoLiveFeed.vue'
+import DemoCrmBoard from '../demos/DemoCrmBoard.vue'
 import DemoCart from '../demos/DemoCart.vue'
 import SiteLogo from '../ui/SiteLogo.vue'
+import { useLocale } from '../../i18n'
 
 type Tab = 'dashboard' | 'store' | 'crm'
+
+const { messages } = useLocale()
+const studio = computed(() => messages.value.demos.studio)
 
 const activeTab = ref<Tab>('store')
 const sidebarCollapsed = ref(false)
 const cartItems = ref(2)
 
-const tabs: { id: Tab; label: string; icon: string }[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: '◫' },
-  { id: 'store', label: 'Tienda', icon: '◈' },
-  { id: 'crm', label: 'CRM Live', icon: '◎' },
-]
+const tabIcons: Record<Tab, string> = {
+  dashboard: '◫',
+  store: '◈',
+  crm: '◎',
+}
+
+const tabs = computed(() =>
+  studio.value.tabs.map((tab) => ({
+    ...tab,
+    icon: tabIcons[tab.id as Tab],
+  })),
+)
 
 const chartBars = [42, 68, 55, 82, 71, 94, 78, 88, 65, 91, 76, 85]
 
-const notifications = ref([
-  { id: 1, text: 'Nueva versión publicada', time: 'hace 2m' },
-  { id: 2, text: 'Nuevo lead desde landing', time: 'hace 5m' },
-  { id: 3, text: 'Pago confirmado en checkout', time: 'hace 12m' },
-  { id: 4, text: 'Pedido #1842 enviado', time: 'hace 18m' },
-])
+const pipelineColors = ['#6366f1', '#22d3ee', '#a78bfa', '#22c55e']
 
-const pipeline = computed(() => [
-  { stage: 'Brief', count: 3, color: '#6366f1' },
-  { stage: 'Diseño', count: 5, color: '#22d3ee' },
-  { stage: 'Dev', count: 8, color: '#a78bfa' },
-  { stage: 'Deploy', count: 4, color: '#22c55e' },
-])
+const pipeline = computed(() =>
+  studio.value.pipeline.map((step, i) => ({
+    ...step,
+    color: pipelineColors[i] ?? '#6366f1',
+  })),
+)
+
+const activeTabLabel = computed(
+  () => tabs.value.find((t) => t.id === activeTab.value)?.label ?? '',
+)
 </script>
 
 <template>
@@ -51,7 +61,7 @@ const pipeline = computed(() => [
           type="button"
           class="studio__nav-btn"
           :class="{ active: activeTab === tab.id }"
-          @click="activeTab = tab.id"
+          @click="activeTab = tab.id as Tab"
         >
           <span class="studio__nav-icon">{{ tab.icon }}</span>
           <span v-if="!sidebarCollapsed">{{ tab.label }}</span>
@@ -66,11 +76,11 @@ const pipeline = computed(() => [
       <header class="studio__topbar">
         <div class="studio__search">
           <span>⌕</span>
-          <input type="search" placeholder="Buscar productos, clientes, pedidos…" />
+          <input type="search" :placeholder="studio.searchPlaceholder" />
         </div>
         <div class="studio__topbar-actions">
-          <button type="button" class="studio__icon-btn" title="Notificaciones">🔔</button>
-          <button type="button" class="studio__icon-btn studio__icon-btn--cart" title="Carrito">
+          <button type="button" class="studio__icon-btn" :title="studio.notifications">🔔</button>
+          <button type="button" class="studio__icon-btn studio__icon-btn--cart" :title="studio.cart">
             🛒
             <span v-if="cartItems" class="studio__cart-count">{{ cartItems }}</span>
           </button>
@@ -82,12 +92,12 @@ const pipeline = computed(() => [
 
       <header class="studio__header">
         <motion.div :key="activeTab" :initial="{ opacity: 0, x: -8 }" :animate="{ opacity: 1, x: 0 }">
-          <h3>{{ tabs.find((t) => t.id === activeTab)?.label }}</h3>
-          <p>Vista previa de tienda, panel y CRM en un solo producto</p>
+          <h3>{{ activeTabLabel }}</h3>
+          <p>{{ studio.headerSubtitle }}</p>
         </motion.div>
         <div class="studio__header-actions">
-          <span class="studio__pill">Preview</span>
-          <span class="studio__pill studio__pill--live">Live</span>
+          <span class="studio__pill">{{ studio.preview }}</span>
+          <span class="studio__pill studio__pill--live">{{ studio.live }}</span>
         </div>
       </header>
 
@@ -104,7 +114,7 @@ const pipeline = computed(() => [
               <DemoMetricCounter />
             </div>
             <div class="studio__panel studio__panel--chart">
-              <p class="studio__panel-label">Ingresos · últimos 12 meses</p>
+              <p class="studio__panel-label">{{ studio.revenueChart }}</p>
               <div class="studio__chart">
                 <motion.div
                   v-for="(h, i) in chartBars"
@@ -117,11 +127,13 @@ const pipeline = computed(() => [
               </div>
             </div>
             <div class="studio__panel studio__panel--orders">
-              <p class="studio__panel-label">Últimos pedidos</p>
+              <p class="studio__panel-label">{{ studio.recentOrders }}</p>
               <ul class="studio__orders">
-                <li><span>#1842</span><strong>$127</strong><small>Completado</small></li>
-                <li><span>#1841</span><strong>$49</strong><small>En tránsito</small></li>
-                <li><span>#1840</span><strong>$99</strong><small>Procesando</small></li>
+                <li v-for="order in studio.orders" :key="order.id">
+                  <span>{{ order.id }}</span>
+                  <strong>{{ order.amount }}</strong>
+                  <small>{{ order.status }}</small>
+                </li>
               </ul>
             </div>
           </div>
@@ -158,25 +170,8 @@ const pipeline = computed(() => [
         </template>
 
         <template v-else>
-          <div class="studio__row studio__row--crm">
-            <div class="studio__panel studio__panel--feed">
-              <DemoLiveFeed />
-            </div>
-            <div class="studio__panel studio__panel--inbox">
-              <p class="studio__panel-label">Actividad del sistema</p>
-              <ul class="studio__notifs">
-                <motion.li
-                  v-for="(n, i) in notifications"
-                  :key="n.id"
-                  :initial="{ opacity: 0, x: 16 }"
-                  :animate="{ opacity: 1, x: 0 }"
-                  :transition="{ delay: i * 0.08 }"
-                >
-                  <span>{{ n.text }}</span>
-                  <small>{{ n.time }}</small>
-                </motion.li>
-              </ul>
-            </div>
+          <div class="studio__panel studio__panel--crm-full">
+            <DemoCrmBoard compact />
           </div>
         </template>
       </motion.div>
@@ -471,8 +466,9 @@ const pipeline = computed(() => [
     min-height: 220px;
   }
 
-  &--feed {
-    min-height: 380px;
+  &--crm-full {
+    min-height: 480px;
+    padding: 1.25rem;
   }
 
   &--checkout,

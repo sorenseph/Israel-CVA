@@ -1,57 +1,75 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { motion } from 'motion-v'
+import { useLocale } from '../../i18n'
+import DemoPaymentSimulator from './DemoPaymentSimulator.vue'
+
+const { messages } = useLocale()
+const t = () => messages.value.demos.checkout
+const payT = () => messages.value.demos.payment
 
 const plan = ref<'pro' | 'team'>('pro')
-const processing = ref(false)
-const done = ref(false)
+const showPayment = ref(false)
+const paid = ref(false)
 
-async function pay() {
-  processing.value = true
-  await new Promise((r) => setTimeout(r, 1200))
-  processing.value = false
-  done.value = true
+const amount = computed(() => (plan.value === 'pro' ? 999 : 1899))
+
+function startPay() {
+  showPayment.value = true
+  paid.value = false
+}
+
+function onPaymentSuccess() {
+  paid.value = true
+  showPayment.value = false
 }
 </script>
 
 <template>
   <motion.div class="demo-checkout" layout>
-    <p class="demo-checkout__label">Demo · Pasarela</p>
-    <div class="demo-checkout__plans">
-      <button
-        type="button"
-        :class="{ active: plan === 'pro' }"
-        @click="plan = 'pro'; done = false"
+    <template v-if="!showPayment">
+      <p class="demo-checkout__label">{{ t().label }}</p>
+      <div class="demo-checkout__plans">
+        <button
+          type="button"
+          :class="{ active: plan === 'pro' }"
+          @click="plan = 'pro'; paid = false"
+        >
+          {{ t().planPro }}
+        </button>
+        <button
+          type="button"
+          :class="{ active: plan === 'team' }"
+          @click="plan = 'team'; paid = false"
+        >
+          {{ t().planTeam }}
+        </button>
+      </div>
+      <motion.button
+        v-if="!paid"
+        class="demo-checkout__pay"
+        :while-tap="{ scale: 0.98 }"
+        @click="startPay"
       >
-        Pro · $29/mes
-      </button>
-      <button
-        type="button"
-        :class="{ active: plan === 'team' }"
-        @click="plan = 'team'; done = false"
+        {{ payT().pay }}
+      </motion.button>
+      <motion.p
+        v-else
+        class="demo-checkout__ok"
+        :initial="{ opacity: 0, y: 8 }"
+        :animate="{ opacity: 1, y: 0 }"
       >
-        Team · $79/mes
-      </button>
-    </div>
-    <motion.button
-      class="demo-checkout__pay"
-      :disabled="processing || done"
-      :while-hover="{ scale: 1.02 }"
-      :while-tap="{ scale: 0.98 }"
-      @click="pay"
-    >
-      <span v-if="processing">Procesando…</span>
-      <span v-else-if="done">Pago simulado</span>
-      <span v-else>Pagar con Stripe</span>
-    </motion.button>
-    <motion.p
-      v-if="done"
-      class="demo-checkout__ok"
-      :initial="{ opacity: 0, y: 8 }"
-      :animate="{ opacity: 1, y: 0 }"
-    >
-      Webhook recibido · suscripción activa
-    </motion.p>
+        {{ t().success }}
+      </motion.p>
+    </template>
+
+    <DemoPaymentSimulator
+      v-else
+      :amount="amount"
+      compact
+      @success="onPaymentSuccess"
+      @cancel="showPayment = false"
+    />
   </motion.div>
 </template>
 
@@ -69,6 +87,7 @@ async function pay() {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: $text-dim;
+    margin: 0;
   }
 
   &__plans {
@@ -81,15 +100,16 @@ async function pay() {
       font-size: 0.75rem;
       border-radius: $radius-sm;
       border: 1px solid $border-subtle;
-      background: transparent;
+      background: #fff;
       color: $text-muted;
       cursor: pointer;
       transition: $transition;
 
       &.active {
         border-color: $accent-primary;
-        background: rgba(99, 102, 241, 0.15);
+        background: color-mix(in srgb, $accent-primary 10%, white);
         color: $text-primary;
+        font-weight: 600;
       }
     }
   }
@@ -98,22 +118,18 @@ async function pay() {
     margin-top: auto;
     padding: 0.65rem;
     border: none;
-    border-radius: $radius-sm;
-    background: linear-gradient(135deg, #635bff, #8b5cf6);
+    border-radius: $radius-full;
+    background: $stroke-ink;
     color: white;
     font-weight: 600;
     font-size: 0.85rem;
     cursor: pointer;
-
-    &:disabled {
-      opacity: 0.7;
-      cursor: default;
-    }
   }
 
   &__ok {
-    font-size: 0.75rem;
-    color: #22c55e;
+    margin: auto 0 0;
+    font-size: 0.8rem;
+    color: #16a34a;
     text-align: center;
   }
 }

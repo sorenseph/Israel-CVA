@@ -5,13 +5,6 @@ export interface NavLinkMessage {
   label: string
 }
 
-export interface ServiceMessage {
-  num: string
-  title: string
-  description: string
-  tags: string[]
-}
-
 export interface ProcessStepMessage {
   step: string
   title: string
@@ -116,12 +109,11 @@ export interface Messages {
     viewDemos: string
   }
   sections: {
-    services: SectionTitleMessage
     showcase: SectionTitleMessage & {
       ctaPrimary: string
       ctaSecondary: string
     }
-    deliverables: SectionTitleMessage
+    deliverables: SectionTitleMessage & { exploreCta: string }
     process: SectionTitleMessage
     stats: SectionTitleMessage
     about: SectionTitleMessage
@@ -136,7 +128,6 @@ export interface Messages {
     }
     contact: SectionTitleMessage
   }
-  services: ServiceMessage[]
   processSteps: ProcessStepMessage[]
   benefits: string[]
   studioPillars: StudioPillarMessage[]
@@ -164,6 +155,166 @@ export interface Messages {
       clients: string
       uptime: string
     }
+    payment: {
+      title: string
+      total: string
+      cardNumber: string
+      expiry: string
+      cvv: string
+      pay: string
+      processing: string
+      success: string
+      successDetail: string
+      cancel: string
+    }
+    auth: {
+      title: string
+      email: string
+      emailPlaceholder: string
+      password: string
+      passwordPlaceholder: string
+      continue: string
+      login: string
+      verifying: string
+      sessionActive: string
+      logout: string
+    }
+    studio: {
+      tabs: { id: string; label: string }[]
+      searchPlaceholder: string
+      headerSubtitle: string
+      preview: string
+      live: string
+      notifications: string
+      cart: string
+      revenueChart: string
+      recentOrders: string
+      orders: { id: string; amount: string; status: string }[]
+      pipeline: { stage: string; count: number }[]
+    }
+    cart: {
+      catalog: string
+      cart: string
+      empty: string
+      subtotal: string
+      shipping: string
+      freeShipping: string
+      total: string
+      checkout: string
+      add: string
+      orderConfirmed: string
+      orderConfirmedDetail: string
+      newPurchase: string
+    }
+    checkout: {
+      label: string
+      planPro: string
+      planTeam: string
+      success: string
+    }
+    store: {
+      products: { name: string; tag: string }[]
+    }
+    crm: {
+      activity: string
+      stages: { name: string; value: string; count: number }[]
+      leads: { name: string; company: string; value: string }[]
+      calendar: { day: string; slots: string[] }[]
+      notifications: { text: string; time: string }[]
+      mockLeads: { name: string; message: string }[]
+    }
+    team: { name: string; role: string; active: boolean }[]
+  }
+  seo: {
+    siteName: string
+    homeTitle: string
+    titleSuffix: string
+    homeDescription: string
+    keywords: string
+    defaultImageAlt: string
+    simulatorPreview: string
+    simulatorDetail: string
+    breadcrumbHome: string
+    breadcrumbExplore: string
   }
   preloader: Record<string, never>
+  whatsapp: {
+    aria: string
+    defaultMessage: string
+  }
+  simulators: {
+    back: string
+    preview: string
+    hint: string
+    contactCta: string
+    webapp: {
+      nav: { id: string; label: string }[]
+      revenue: string
+      activity: string
+      events: string[]
+      projectsTitle: string
+      usersTitle: string
+      projects: { name: string; status: string; progress: number }[]
+      statusActive: string
+      statusAway: string
+    }
+    tienda: {
+      nav: { id: string; label: string }[]
+      heroTitle: string
+      heroText: string
+      promosTitle: string
+      apply: string
+      inactive: string
+      promos: { code: string; discount: string; active: boolean }[]
+    }
+    operaciones: {
+      nav: { id: string; label: string }[]
+      ordersTitle: string
+      inventoryTitle: string
+      reportsTitle: string
+      units: string
+      lowStock: string
+      kpiSales: string
+      kpiFulfillment: string
+      kpiShipping: string
+      orders: { id: string; client: string; total: string; status: string }[]
+    }
+    movil: {
+      nav: { id: string; label: string; icon: string }[]
+      greeting: string
+      homeTitle: string
+      searchPlaceholder: string
+      featuredTitle: string
+      activityTitle: string
+      shopTitle: string
+      statBookings: string
+      statSatisfaction: string
+      ctaBook: string
+      bookingsTitle: string
+      profileRole: string
+      notifOn: string
+      membership: string
+      offline: string
+      paymentMethod: string
+      teamTitle: string
+      sideTitle: string
+      sideText: string
+      bookings: { time: string; title: string; client: string }[]
+      activity: { text: string; time: string }[]
+      profileName: string
+    }
+    pagos: {
+      nav: { id: string; label: string }[]
+      featureCheckout: string
+      featureBilling: string
+      invoicesTitle: string
+      invoiceColumns: { invoice: string; amount: string; date: string; status: string }
+      plans: { id: string; name: string; price: string; period: string; featured?: boolean }[]
+      invoices: { id: string; amount: string; date: string; status: string }[]
+    }
+    crm: {
+      nav: { id: string; label: string }[]
+      calendarTitle: string
+    }
+  }
 }

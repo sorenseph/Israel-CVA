@@ -1,5 +1,6 @@
 import { profile } from './cv'
 import { brand } from './brand'
+import { defaultOgImage } from './seo-assets'
 import { normalizeSiteUrl } from '../lib/seo-build'
 
 const siteUrl = normalizeSiteUrl(import.meta.env.VITE_SITE_URL as string | undefined)
@@ -26,8 +27,11 @@ export const seo = {
   themeColor: '#f4f3ef',
   twitterHandle: '',
   ogType: 'website',
-  image: brand.logoPng,
-  imageAlt: brand.alt,
+  image: defaultOgImage,
+  imageAlt: brand.ogImageAlt,
+  ogImageType: 'image/jpeg',
+  ogImageWidth: 1200,
+  ogImageHeight: 800,
   email: profile.email,
   phone: profile.phone,
   location: profile.location,

@@ -4,9 +4,8 @@ const messages: Messages = {
   nav: {
     links: [
       { id: 'inicio', label: 'Inicio' },
-      { id: 'servicios', label: 'Servicios' },
-      { id: 'demos', label: 'Demos' },
       { id: 'proyectos', label: 'Proyectos' },
+      { id: 'demos', label: 'Demos' },
       { id: 'sobre-mi', label: 'Studio' },
     ],
     contact: 'Contacto',
@@ -22,25 +21,19 @@ const messages: Messages = {
     cedula: '11084605',
     summary:
       'Diseñamos y construimos productos digitales listos para operar: sitios web, webapps, SaaS, tiendas en línea, CRM, plataformas de servicios y apps móviles. Trabajamos contigo desde la idea hasta el lanzamiento, con entregas claras, diseño cuidado y foco en conversión y experiencia de usuario.',
-    heroLead: 'Agencia de productos digitales.',
+    heroLead: 'Productos digitales para negocios que quieren crecer.',
     heroPitch:
-      'Webapps, SaaS, e-commerce, CRM y apps móviles — de la idea al lanzamiento con un solo equipo.',
+      'Más clientes para tu negocio y automatización — de la idea al lanzamiento con un solo equipo.',
   },
   hero: {
     dropTaglines: [
-      'Productos digitales de alto impacto.',
-      'Webapps, SaaS y e-commerce.',
+      'Más clientes. Menos trabajo manual.',
+      'Automatización que escala tu negocio.',
     ],
     startProject: 'Iniciar proyecto',
     viewDemos: 'Ver demos',
   },
   sections: {
-    services: {
-      label: 'Servicios',
-      title: 'Productos digitales a tu medida',
-      subtitle:
-        'Sitios, webapps, SaaS, e-commerce, CRM y apps móviles — desde la idea hasta el lanzamiento.',
-    },
     showcase: {
       label: 'Demo interactiva',
       title: 'Así se ve un producto en vivo',
@@ -53,7 +46,8 @@ const messages: Messages = {
       label: 'Proyectos',
       title: 'Lo que podemos construir contigo',
       subtitle:
-        'Tipos de producto que lanzamos con marcas, startups y equipos corporativos.',
+        'Explora cada tipo de producto en un simulador interactivo — navega como si ya estuviera en producción.',
+      exploreCta: 'Explorar simulador',
     },
     process: {
       label: 'Proceso',
@@ -96,36 +90,6 @@ const messages: Messages = {
         'Completa el formulario y te respondemos en menos de 24 horas con los siguientes pasos.',
     },
   },
-  services: [
-    {
-      num: '01',
-      title: 'Sitios y landings',
-      description:
-        'Páginas de alto impacto para marcas, campañas y lanzamientos con narrativa clara y llamadas a la acción.',
-      tags: ['Branding', 'Conversión', 'SEO'],
-    },
-    {
-      num: '02',
-      title: 'Webapps y SaaS',
-      description:
-        'Productos digitales con cuentas de usuario, paneles, flujos de negocio y crecimiento por etapas.',
-      tags: ['MVP', 'Escalable', 'B2B / B2C'],
-    },
-    {
-      num: '03',
-      title: 'E-commerce',
-      description:
-        'Tiendas completas: catálogo, carrito, pagos, envíos y herramientas para tu equipo.',
-      tags: ['Catálogo', 'Checkout', 'Operación'],
-    },
-    {
-      num: '04',
-      title: 'CRM y plataformas',
-      description:
-        'Sistemas a medida para ventas, servicio al cliente, reservas y gestión interna.',
-      tags: ['CRM', 'Automatización', 'Portal'],
-    },
-  ],
   processSteps: [
     {
       step: '01',
@@ -361,8 +325,276 @@ const messages: Messages = {
       clients: 'Clientes',
       uptime: 'Uptime',
     },
+    payment: {
+      title: 'Pago seguro',
+      total: 'Total a pagar',
+      cardNumber: 'Número de tarjeta',
+      expiry: 'Vencimiento',
+      cvv: 'CVV',
+      pay: 'Pagar',
+      processing: 'Procesando pago…',
+      success: '¡Pago confirmado!',
+      successDetail: 'Recibirás la confirmación por correo',
+      cancel: 'Cancelar',
+    },
+    auth: {
+      title: 'Acceso de clientes',
+      email: 'Correo',
+      emailPlaceholder: 'tu@empresa.com',
+      password: 'Contraseña',
+      passwordPlaceholder: '••••••••',
+      continue: 'Continuar',
+      login: 'Iniciar sesión',
+      verifying: 'Verificando credenciales…',
+      sessionActive: 'Sesión activa',
+      logout: 'Cerrar sesión',
+    },
+    studio: {
+      tabs: [
+        { id: 'dashboard', label: 'Dashboard' },
+        { id: 'store', label: 'Tienda' },
+        { id: 'crm', label: 'CRM Live' },
+      ],
+      searchPlaceholder: 'Buscar productos, clientes, pedidos…',
+      headerSubtitle: 'Vista previa de tienda, panel y CRM en un solo producto',
+      preview: 'Preview',
+      live: 'Live',
+      notifications: 'Notificaciones',
+      cart: 'Carrito',
+      revenueChart: 'Ingresos · últimos 12 meses',
+      recentOrders: 'Últimos pedidos',
+      orders: [
+        { id: '#1842', amount: '$127', status: 'Completado' },
+        { id: '#1841', amount: '$49', status: 'En tránsito' },
+        { id: '#1840', amount: '$99', status: 'Procesando' },
+      ],
+      pipeline: [
+        { stage: 'Brief', count: 3 },
+        { stage: 'Diseño', count: 5 },
+        { stage: 'Dev', count: 8 },
+        { stage: 'Deploy', count: 4 },
+      ],
+    },
+    cart: {
+      catalog: 'Catálogo',
+      cart: 'Carrito',
+      empty: 'Tu carrito está vacío — agrega un producto',
+      subtotal: 'Subtotal',
+      shipping: 'Envío',
+      freeShipping: 'Gratis',
+      total: 'Total',
+      checkout: 'Ir a pagar',
+      add: '+ Agregar',
+      orderConfirmed: '¡Pedido confirmado!',
+      orderConfirmedDetail: 'Recibirás la confirmación por correo.',
+      newPurchase: 'Nueva compra',
+    },
+    checkout: {
+      label: 'Demo · Suscripción',
+      planPro: 'Pro · $999/mes',
+      planTeam: 'Team · $1,899/mes',
+      success: 'Suscripción activa · factura enviada',
+    },
+    store: {
+      products: [
+        { name: 'Kit cuidado natural', tag: 'Bestseller' },
+        { name: 'Set branding premium', tag: 'Nuevo' },
+        { name: 'Rutina facial diaria', tag: 'Popular' },
+        { name: 'Colección masculina', tag: 'Edición limitada' },
+        { name: 'Serum + jabón artesanal', tag: 'Oferta' },
+      ],
+    },
+    crm: {
+      activity: 'Actividad del sistema',
+      stages: [
+        { name: 'Nuevo', value: '$48k', count: 12 },
+        { name: 'Calificado', value: '$62k', count: 8 },
+        { name: 'Propuesta', value: '$91k', count: 5 },
+        { name: 'Cierre', value: '$120k', count: 3 },
+      ],
+      leads: [
+        { name: 'María González', company: 'Nova Retail', value: '$12,400' },
+        { name: 'Roberto Silva', company: 'FinLab', value: '$8,900' },
+        { name: 'Elena Martínez', company: 'Studio Bloom', value: '$15,200' },
+      ],
+      calendar: [
+        { day: 'Lun', slots: ['10:00 Demo', '15:00 Seguimiento'] },
+        { day: 'Mar', slots: ['11:30 Llamada'] },
+        { day: 'Mié', slots: ['09:00 Kickoff', '17:00 Cierre'] },
+      ],
+      notifications: [
+        { text: 'Nuevo lead desde landing', time: 'hace 5m' },
+        { text: 'Pago confirmado en checkout', time: 'hace 12m' },
+        { text: 'Pedido #1842 enviado', time: 'hace 18m' },
+      ],
+      mockLeads: [
+        { name: 'María G.', message: 'Necesito una webapp para mi startup' },
+        { name: 'Carlos R.', message: 'Tienda en línea con panel de pedidos' },
+      ],
+    },
+    team: [
+      { name: 'Ana R.', role: 'Admin', active: true },
+      { name: 'Luis M.', role: 'Operaciones', active: true },
+      { name: 'Sofía T.', role: 'Soporte', active: false },
+      { name: 'Carlos V.', role: 'Ventas', active: true },
+    ],
+  },
+  seo: {
+    siteName: 'Studio ICVA',
+    homeTitle: 'Studio ICVA',
+    titleSuffix: 'Agencia de productos digitales',
+    homeDescription:
+      'Studio ICVA — agencia de productos digitales. Sitios web, webapps, SaaS, e-commerce, CRM, plataformas de servicios y apps móviles a medida. De la idea al lanzamiento con un solo equipo.',
+    keywords:
+      'agencia desarrollo web, webapps, SaaS México, e-commerce México, CRM a medida, aplicaciones móviles, plataformas digitales, Studio ICVA, productos digitales',
+    defaultImageAlt: 'Studio ICVA — agencia de productos digitales',
+    simulatorPreview: 'Vista previa interactiva',
+    simulatorDetail: 'Explora una demo funcional del producto.',
+    breadcrumbHome: 'Inicio',
+    breadcrumbExplore: 'Proyectos',
   },
   preloader: {},
+  whatsapp: {
+    aria: 'Escríbenos por WhatsApp',
+    defaultMessage: 'Hola Studio ICVA, me interesa un proyecto digital.',
+  },
+  simulators: {
+    back: 'Volver al sitio',
+    preview: 'Vista previa interactiva',
+    hint: 'Navega entre módulos como en un producto real.',
+    contactCta: 'Quiero algo así',
+    webapp: {
+      nav: [
+        { id: 'dashboard', label: 'Dashboard' },
+        { id: 'projects', label: 'Proyectos' },
+        { id: 'users', label: 'Usuarios' },
+      ],
+      revenue: 'Ingresos mensuales',
+      activity: 'Actividad reciente',
+      events: [
+        'Nuevo cliente registrado — hace 3 min',
+        'Reporte exportado — hace 18 min',
+        'Módulo de pagos activado — hace 1 h',
+      ],
+      projectsTitle: 'Proyectos en curso',
+      usersTitle: 'Equipo y accesos',
+      projects: [
+        { name: 'Portal clientes', status: 'En producción', progress: 100 },
+        { name: 'Módulo reportes', status: 'En desarrollo', progress: 68 },
+        { name: 'Onboarding v2', status: 'Diseño', progress: 34 },
+      ],
+      statusActive: 'Activo',
+      statusAway: 'Ausente',
+    },
+    tienda: {
+      nav: [
+        { id: 'catalog', label: 'Catálogo' },
+        { id: 'checkout', label: 'Checkout' },
+        { id: 'promos', label: 'Promociones' },
+      ],
+      heroTitle: 'Tu tienda, lista para vender',
+      heroText: 'Catálogo real, carrito y checkout en un solo flujo.',
+      promosTitle: 'Cupones activos',
+      apply: 'Aplicar',
+      inactive: 'Inactivo',
+      promos: [
+        { code: 'LANZAMIENTO15', discount: '15%', active: true },
+        { code: 'ENVIOGRATIS', discount: 'Envío $0', active: true },
+        { code: 'VIP20', discount: '20%', active: false },
+      ],
+    },
+    operaciones: {
+      nav: [
+        { id: 'orders', label: 'Pedidos' },
+        { id: 'inventory', label: 'Inventario' },
+        { id: 'reports', label: 'Reportes' },
+      ],
+      ordersTitle: 'Pedidos del día',
+      inventoryTitle: 'Inventario',
+      reportsTitle: 'Resumen operativo',
+      units: 'unidades',
+      lowStock: 'Stock bajo',
+      kpiSales: 'Ventas vs mes anterior',
+      kpiFulfillment: 'Pedidos completados',
+      kpiShipping: 'Tiempo de envío',
+      orders: [
+        { id: '#2841', client: 'María G.', total: '$1,240', status: 'Enviado' },
+        { id: '#2840', client: 'Carlos V.', total: '$890', status: 'Empacando' },
+        { id: '#2839', client: 'Laura P.', total: '$2,100', status: 'Pagado' },
+      ],
+    },
+    movil: {
+      nav: [
+        { id: 'home', label: 'Inicio', icon: '⌂' },
+        { id: 'shop', label: 'Tienda', icon: '◈' },
+        { id: 'bookings', label: 'Agenda', icon: '◎' },
+        { id: 'profile', label: 'Perfil', icon: '◉' },
+      ],
+      greeting: 'Buenos días',
+      homeTitle: 'Tu negocio en el bolsillo',
+      searchPlaceholder: 'Buscar productos, citas…',
+      featuredTitle: 'Destacados',
+      activityTitle: 'Actividad reciente',
+      shopTitle: 'Catálogo',
+      statBookings: 'Citas hoy',
+      statSatisfaction: 'Satisfacción',
+      ctaBook: 'Agendar cita',
+      bookingsTitle: 'Agenda de hoy',
+      profileRole: 'Cuenta premium',
+      notifOn: 'Notificaciones activas',
+      membership: 'Membresía anual',
+      offline: 'Modo sin conexión',
+      paymentMethod: 'Método de pago guardado',
+      teamTitle: 'Tu equipo',
+      sideTitle: 'Clientes activos',
+      sideText: 'La app conecta ventas, agenda y catálogo en un solo flujo.',
+      bookings: [
+        { time: '10:00', title: 'Consulta inicial', client: 'Roberto S.' },
+        { time: '12:30', title: 'Seguimiento', client: 'Elena M.' },
+        { time: '16:00', title: 'Entrega', client: 'Grupo Nova' },
+      ],
+      activity: [
+        { text: 'Nuevo pedido #2841', time: '2 min' },
+        { text: 'Cita confirmada', time: '15 min' },
+        { text: 'Pago recibido', time: '1 h' },
+      ],
+      profileName: 'Ana García',
+    },
+    pagos: {
+      nav: [
+        { id: 'plans', label: 'Planes' },
+        { id: 'checkout', label: 'Cobro' },
+        { id: 'invoices', label: 'Facturas' },
+      ],
+      featureCheckout: 'Checkout seguro',
+      featureBilling: 'Facturación automática',
+      invoicesTitle: 'Historial de facturas',
+      invoiceColumns: {
+        invoice: 'Factura',
+        amount: 'Monto',
+        date: 'Fecha',
+        status: 'Estado',
+      },
+      plans: [
+        { id: 'starter', name: 'Starter', price: '$499', period: '/mes' },
+        { id: 'pro', name: 'Pro', price: '$999', period: '/mes', featured: true },
+        { id: 'team', name: 'Team', price: '$1,899', period: '/mes' },
+      ],
+      invoices: [
+        { id: 'INV-2401', amount: '$999', date: '01 Jun', status: 'Pagada' },
+        { id: 'INV-2400', amount: '$999', date: '01 May', status: 'Pagada' },
+        { id: 'INV-2399', amount: '$499', date: '01 Abr', status: 'Pagada' },
+      ],
+    },
+    crm: {
+      nav: [
+        { id: 'pipeline', label: 'Pipeline' },
+        { id: 'leads', label: 'Leads' },
+        { id: 'calendar', label: 'Agenda' },
+      ],
+      calendarTitle: 'Semana en curso',
+    },
+  },
 }
 
 export default messages

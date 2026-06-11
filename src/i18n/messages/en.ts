@@ -4,9 +4,8 @@ const messages: Messages = {
   nav: {
     links: [
       { id: 'inicio', label: 'Home' },
-      { id: 'servicios', label: 'Services' },
-      { id: 'demos', label: 'Demos' },
       { id: 'proyectos', label: 'Projects' },
+      { id: 'demos', label: 'Demos' },
       { id: 'sobre-mi', label: 'Studio' },
     ],
     contact: 'Contact',
@@ -22,25 +21,19 @@ const messages: Messages = {
     cedula: '11084605',
     summary:
       'We design and build digital products ready to operate: websites, web apps, SaaS, online stores, CRM, service platforms, and mobile apps. We work with you from idea to launch, with clear deliverables, thoughtful design, and a focus on conversion and user experience.',
-    heroLead: 'Digital product agency.',
+    heroLead: 'Digital products for businesses ready to grow.',
     heroPitch:
-      'Web apps, SaaS, e-commerce, CRM, and mobile apps — from idea to launch with one team.',
+      'More customers and automation for your business — from idea to launch with one team.',
   },
   hero: {
     dropTaglines: [
-      'High-impact digital products.',
-      'Web apps, SaaS, and e-commerce.',
+      'More customers. Less manual work.',
+      'Automation that scales your business.',
     ],
     startProject: 'Start a project',
     viewDemos: 'View demos',
   },
   sections: {
-    services: {
-      label: 'Services',
-      title: 'Digital products tailored to you',
-      subtitle:
-        'Websites, web apps, SaaS, e-commerce, CRM, and mobile apps — from idea to launch.',
-    },
     showcase: {
       label: 'Interactive demo',
       title: 'This is what a live product looks like',
@@ -53,7 +46,8 @@ const messages: Messages = {
       label: 'Projects',
       title: 'What we can build with you',
       subtitle:
-        'Product types we launch with brands, startups, and corporate teams.',
+        'Explore each product type in an interactive simulator — navigate as if it were already live.',
+      exploreCta: 'Explore simulator',
     },
     process: {
       label: 'Process',
@@ -96,36 +90,6 @@ const messages: Messages = {
         'Fill out the form and we will respond within 24 hours with next steps.',
     },
   },
-  services: [
-    {
-      num: '01',
-      title: 'Websites and landing pages',
-      description:
-        'High-impact pages for brands, campaigns, and launches with clear narrative and calls to action.',
-      tags: ['Branding', 'Conversion', 'SEO'],
-    },
-    {
-      num: '02',
-      title: 'Web apps and SaaS',
-      description:
-        'Digital products with user accounts, dashboards, business flows, and staged growth.',
-      tags: ['MVP', 'Scalable', 'B2B / B2C'],
-    },
-    {
-      num: '03',
-      title: 'E-commerce',
-      description:
-        'Complete stores: catalog, cart, payments, shipping, and tools for your team.',
-      tags: ['Catalog', 'Checkout', 'Operations'],
-    },
-    {
-      num: '04',
-      title: 'CRM and platforms',
-      description:
-        'Custom systems for sales, customer service, bookings, and internal management.',
-      tags: ['CRM', 'Automation', 'Portal'],
-    },
-  ],
   processSteps: [
     {
       step: '01',
@@ -361,8 +325,276 @@ const messages: Messages = {
       clients: 'Clients',
       uptime: 'Uptime',
     },
+    payment: {
+      title: 'Secure payment',
+      total: 'Total',
+      cardNumber: 'Card number',
+      expiry: 'Expiry',
+      cvv: 'CVV',
+      pay: 'Pay',
+      processing: 'Processing payment…',
+      success: 'Payment confirmed!',
+      successDetail: 'You will receive confirmation by email',
+      cancel: 'Cancel',
+    },
+    auth: {
+      title: 'Client access',
+      email: 'Email',
+      emailPlaceholder: 'you@company.com',
+      password: 'Password',
+      passwordPlaceholder: '••••••••',
+      continue: 'Continue',
+      login: 'Sign in',
+      verifying: 'Verifying credentials…',
+      sessionActive: 'Active session',
+      logout: 'Sign out',
+    },
+    studio: {
+      tabs: [
+        { id: 'dashboard', label: 'Dashboard' },
+        { id: 'store', label: 'Store' },
+        { id: 'crm', label: 'CRM Live' },
+      ],
+      searchPlaceholder: 'Search products, clients, orders…',
+      headerSubtitle: 'Store, dashboard, and CRM preview in one product',
+      preview: 'Preview',
+      live: 'Live',
+      notifications: 'Notifications',
+      cart: 'Cart',
+      revenueChart: 'Revenue · last 12 months',
+      recentOrders: 'Recent orders',
+      orders: [
+        { id: '#1842', amount: '$127', status: 'Completed' },
+        { id: '#1841', amount: '$49', status: 'In transit' },
+        { id: '#1840', amount: '$99', status: 'Processing' },
+      ],
+      pipeline: [
+        { stage: 'Brief', count: 3 },
+        { stage: 'Design', count: 5 },
+        { stage: 'Dev', count: 8 },
+        { stage: 'Deploy', count: 4 },
+      ],
+    },
+    cart: {
+      catalog: 'Catalog',
+      cart: 'Cart',
+      empty: 'Your cart is empty — add a product',
+      subtotal: 'Subtotal',
+      shipping: 'Shipping',
+      freeShipping: 'Free',
+      total: 'Total',
+      checkout: 'Checkout',
+      add: '+ Add',
+      orderConfirmed: 'Order confirmed!',
+      orderConfirmedDetail: 'You will receive confirmation by email.',
+      newPurchase: 'New purchase',
+    },
+    checkout: {
+      label: 'Demo · Subscription',
+      planPro: 'Pro · $999/mo',
+      planTeam: 'Team · $1,899/mo',
+      success: 'Subscription active · invoice sent',
+    },
+    store: {
+      products: [
+        { name: 'Natural care kit', tag: 'Bestseller' },
+        { name: 'Premium branding set', tag: 'New' },
+        { name: 'Daily facial routine', tag: 'Popular' },
+        { name: "Men's collection", tag: 'Limited edition' },
+        { name: 'Serum + artisan soap', tag: 'Sale' },
+      ],
+    },
+    crm: {
+      activity: 'System activity',
+      stages: [
+        { name: 'New', value: '$48k', count: 12 },
+        { name: 'Qualified', value: '$62k', count: 8 },
+        { name: 'Proposal', value: '$91k', count: 5 },
+        { name: 'Closed', value: '$120k', count: 3 },
+      ],
+      leads: [
+        { name: 'María González', company: 'Nova Retail', value: '$12,400' },
+        { name: 'Roberto Silva', company: 'FinLab', value: '$8,900' },
+        { name: 'Elena Martínez', company: 'Studio Bloom', value: '$15,200' },
+      ],
+      calendar: [
+        { day: 'Mon', slots: ['10:00 Demo', '3:00 PM Follow-up'] },
+        { day: 'Tue', slots: ['11:30 Call'] },
+        { day: 'Wed', slots: ['9:00 AM Kickoff', '5:00 PM Close'] },
+      ],
+      notifications: [
+        { text: 'New lead from landing', time: '5m ago' },
+        { text: 'Payment confirmed at checkout', time: '12m ago' },
+        { text: 'Order #1842 shipped', time: '18m ago' },
+      ],
+      mockLeads: [
+        { name: 'María G.', message: 'I need a web app for my startup' },
+        { name: 'Carlos R.', message: 'Online store with order dashboard' },
+      ],
+    },
+    team: [
+      { name: 'Ana R.', role: 'Admin', active: true },
+      { name: 'Luis M.', role: 'Operations', active: true },
+      { name: 'Sofía T.', role: 'Support', active: false },
+      { name: 'Carlos V.', role: 'Sales', active: true },
+    ],
+  },
+  seo: {
+    siteName: 'Studio ICVA',
+    homeTitle: 'Studio ICVA',
+    titleSuffix: 'Digital product agency',
+    homeDescription:
+      'Studio ICVA — digital product agency. Websites, web apps, SaaS, e-commerce, CRM, service platforms, and custom mobile apps. From idea to launch with one team.',
+    keywords:
+      'web development agency, web apps, SaaS Mexico, e-commerce Mexico, custom CRM, mobile apps, digital platforms, Studio ICVA, digital products',
+    defaultImageAlt: 'Studio ICVA — digital product agency',
+    simulatorPreview: 'Interactive preview',
+    simulatorDetail: 'Explore a functional product demo.',
+    breadcrumbHome: 'Home',
+    breadcrumbExplore: 'Projects',
   },
   preloader: {},
+  whatsapp: {
+    aria: 'Message us on WhatsApp',
+    defaultMessage: 'Hi Studio ICVA, I am interested in a digital project.',
+  },
+  simulators: {
+    back: 'Back to site',
+    preview: 'Interactive preview',
+    hint: 'Browse modules as you would in a live product.',
+    contactCta: 'I want this',
+    webapp: {
+      nav: [
+        { id: 'dashboard', label: 'Dashboard' },
+        { id: 'projects', label: 'Projects' },
+        { id: 'users', label: 'Users' },
+      ],
+      revenue: 'Monthly revenue',
+      activity: 'Recent activity',
+      events: [
+        'New customer registered — 3 min ago',
+        'Report exported — 18 min ago',
+        'Payments module enabled — 1 h ago',
+      ],
+      projectsTitle: 'Projects in progress',
+      usersTitle: 'Team and access',
+      projects: [
+        { name: 'Client portal', status: 'In production', progress: 100 },
+        { name: 'Reports module', status: 'In development', progress: 68 },
+        { name: 'Onboarding v2', status: 'Design', progress: 34 },
+      ],
+      statusActive: 'Active',
+      statusAway: 'Away',
+    },
+    tienda: {
+      nav: [
+        { id: 'catalog', label: 'Catalog' },
+        { id: 'checkout', label: 'Checkout' },
+        { id: 'promos', label: 'Promotions' },
+      ],
+      heroTitle: 'Your store, ready to sell',
+      heroText: 'Real catalog, cart, and checkout in one flow.',
+      promosTitle: 'Active coupons',
+      apply: 'Apply',
+      inactive: 'Inactive',
+      promos: [
+        { code: 'LAUNCH15', discount: '15%', active: true },
+        { code: 'FREESHIP', discount: '$0 shipping', active: true },
+        { code: 'VIP20', discount: '20%', active: false },
+      ],
+    },
+    operaciones: {
+      nav: [
+        { id: 'orders', label: 'Orders' },
+        { id: 'inventory', label: 'Inventory' },
+        { id: 'reports', label: 'Reports' },
+      ],
+      ordersTitle: "Today's orders",
+      inventoryTitle: 'Inventory',
+      reportsTitle: 'Operations summary',
+      units: 'units',
+      lowStock: 'Low stock',
+      kpiSales: 'Sales vs last month',
+      kpiFulfillment: 'Orders fulfilled',
+      kpiShipping: 'Shipping time',
+      orders: [
+        { id: '#2841', client: 'María G.', total: '$1,240', status: 'Shipped' },
+        { id: '#2840', client: 'Carlos V.', total: '$890', status: 'Packing' },
+        { id: '#2839', client: 'Laura P.', total: '$2,100', status: 'Paid' },
+      ],
+    },
+    movil: {
+      nav: [
+        { id: 'home', label: 'Home', icon: '⌂' },
+        { id: 'shop', label: 'Shop', icon: '◈' },
+        { id: 'bookings', label: 'Schedule', icon: '◎' },
+        { id: 'profile', label: 'Profile', icon: '◉' },
+      ],
+      greeting: 'Good morning',
+      homeTitle: 'Your business in your pocket',
+      searchPlaceholder: 'Search products, bookings…',
+      featuredTitle: 'Featured',
+      activityTitle: 'Recent activity',
+      shopTitle: 'Catalog',
+      statBookings: 'Bookings today',
+      statSatisfaction: 'Satisfaction',
+      ctaBook: 'Book appointment',
+      bookingsTitle: "Today's schedule",
+      profileRole: 'Premium account',
+      notifOn: 'Notifications on',
+      membership: 'Annual membership',
+      offline: 'Offline mode',
+      paymentMethod: 'Saved payment method',
+      teamTitle: 'Your team',
+      sideTitle: 'Active clients',
+      sideText: 'The app connects sales, schedule, and catalog in one flow.',
+      bookings: [
+        { time: '10:00', title: 'Initial consultation', client: 'Roberto S.' },
+        { time: '12:30', title: 'Follow-up', client: 'Elena M.' },
+        { time: '16:00', title: 'Delivery', client: 'Nova Group' },
+      ],
+      activity: [
+        { text: 'New order #2841', time: '2 min' },
+        { text: 'Appointment confirmed', time: '15 min' },
+        { text: 'Payment received', time: '1 h' },
+      ],
+      profileName: 'Ana García',
+    },
+    pagos: {
+      nav: [
+        { id: 'plans', label: 'Plans' },
+        { id: 'checkout', label: 'Checkout' },
+        { id: 'invoices', label: 'Invoices' },
+      ],
+      featureCheckout: 'Secure checkout',
+      featureBilling: 'Automatic billing',
+      invoicesTitle: 'Invoice history',
+      invoiceColumns: {
+        invoice: 'Invoice',
+        amount: 'Amount',
+        date: 'Date',
+        status: 'Status',
+      },
+      plans: [
+        { id: 'starter', name: 'Starter', price: '$499', period: '/mo' },
+        { id: 'pro', name: 'Pro', price: '$999', period: '/mo', featured: true },
+        { id: 'team', name: 'Team', price: '$1,899', period: '/mo' },
+      ],
+      invoices: [
+        { id: 'INV-2401', amount: '$999', date: 'Jun 01', status: 'Paid' },
+        { id: 'INV-2400', amount: '$999', date: 'May 01', status: 'Paid' },
+        { id: 'INV-2399', amount: '$499', date: 'Apr 01', status: 'Paid' },
+      ],
+    },
+    crm: {
+      nav: [
+        { id: 'pipeline', label: 'Pipeline' },
+        { id: 'leads', label: 'Leads' },
+        { id: 'calendar', label: 'Calendar' },
+      ],
+      calendarTitle: 'Current week',
+    },
+  },
 }
 
 export default messages
