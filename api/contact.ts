@@ -62,7 +62,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const checked = validate(req.body ?? {})
-  if (!checked.ok) {
+  if (checked.ok === false) {
     return res.status(400).json({ error: checked.error })
   }
 
