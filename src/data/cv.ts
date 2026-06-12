@@ -160,4 +160,9 @@ export const socialLinks = [
     label: 'Facebook',
     url: 'https://www.facebook.com/profile.php?id=61590313302740',
   },
+  {
+    id: 'tiktok',
+    label: 'TikTok',
+    url: 'https://www.tiktok.com/@studio.icva5',
+  },
 ] as const

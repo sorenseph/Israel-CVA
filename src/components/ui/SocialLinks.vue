@@ -13,6 +13,8 @@ const icons: Record<(typeof socialLinks)[number]['id'], string> = {
     'M7 2h6a5 5 0 0 1 5 5v6a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 1.6A3.4 3.4 0 0 0 3.6 7v6A3.4 3.4 0 0 0 7 16.4h6a3.4 3.4 0 0 0 3.4-3.4V7A3.4 3.4 0 0 0 13 3.6H7zm6.2 1.3a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8zM10 6.4A3.6 3.6 0 1 1 6.4 10 3.6 3.6 0 0 1 10 6.4zm0 1.6A2 2 0 1 0 12 10a2 2 0 0 0-2-2z',
   facebook:
     'M11.2 3.2H9.6c-2 0-3.6 1.6-3.6 3.6v1.6H3.6v2.8h2.4V16h2.8v-5.8h2.4l.4-2.8H8.8V6.8c0-.6.5-1 .8-1h1.6V3.2z',
+  tiktok:
+    'M13.2 2h2.1v2c1.1.1 2.1.5 3 1v2.2c-.8-.4-1.7-.7-2.6-.8v5.1c0 2.5-2 4.5-4.5 4.5S6.7 15.5 6.7 13s2-4.5 4.5-4.5c.2 0 .4 0 .6.1v2.3a2.2 2.2 0 0 0-.6-.1 2.2 2.2 0 1 0 2.2 2.2V2z',
 }
 </script>
 
@@ -92,7 +94,8 @@ const icons: Record<(typeof socialLinks)[number]['id'], string> = {
 }
 
 .social-links--hero {
-  gap: 0.85rem;
+  gap: 0.6rem;
+  align-items: flex-end;
 
   .social-links__label {
     position: absolute;
@@ -123,7 +126,7 @@ const icons: Record<(typeof socialLinks)[number]['id'], string> = {
   }
 
   @media (max-width: 768px) {
-    gap: 1.05rem;
+    gap: 0.75rem;
 
     .social-links__item {
       padding: 0.5rem;
