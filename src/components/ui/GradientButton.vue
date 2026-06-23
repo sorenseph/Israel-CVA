@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
+
 defineProps<{
   href?: string
+  to?: string
   variant?: 'primary' | 'outline' | 'ghost'
   tag?: 'a' | 'button'
   disabled?: boolean
@@ -8,7 +11,17 @@ defineProps<{
 </script>
 
 <template>
+  <RouterLink
+    v-if="to"
+    :to="to"
+    class="btn"
+    :class="[`btn--${variant ?? 'primary'}`]"
+  >
+    <span class="btn__shine" />
+    <span class="btn__content"><slot /></span>
+  </RouterLink>
   <component
+    v-else
     :is="tag ?? (href ? 'a' : 'button')"
     :href="href"
     :disabled="disabled"

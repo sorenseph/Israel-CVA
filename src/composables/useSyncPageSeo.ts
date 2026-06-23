@@ -19,6 +19,27 @@ export function useSyncPageSeo() {
       const siteUrl = resolveSiteUrl()
       const slug = typeof route.params.slug === 'string' ? route.params.slug : undefined
 
+      if (route.name === 'demo') {
+        const title = `${seoMsg.demoTitle} | ${seoMsg.siteName}`
+        applyPageSeo({
+          title,
+          description: seoMsg.demoDescription,
+          keywords: seoMsg.keywords,
+          path: '/demo',
+          locale: locale.value,
+          structuredData: buildPageStructuredData({
+            siteUrl,
+            locale: locale.value,
+            page: 'demo',
+            path: '/demo',
+            title,
+            description: seoMsg.demoDescription,
+            faqItems: messages.value.faqItems,
+          }),
+        })
+        return
+      }
+
       if (route.name === 'simulator' && slug && isValidSimulatorSlug(slug)) {
         const idx = deliverableMeta.findIndex((item) => item.slug === slug)
         if (idx < 0) return

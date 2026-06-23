@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { motion } from 'motion-v'
 import { useLocale } from '../i18n'
 import SectionTitle from './ui/SectionTitle.vue'
@@ -6,7 +7,17 @@ import ShowcaseApp from './showcase/ShowcaseApp.vue'
 import GradientButton from './ui/GradientButton.vue'
 import AnimateIn from './ui/AnimateIn.vue'
 
+const props = withDefaults(
+  defineProps<{
+    standalone?: boolean
+  }>(),
+  { standalone: false },
+)
+
 const { messages } = useLocale()
+
+const contactHref = computed(() => (props.standalone ? '/#contacto' : '#contacto'))
+const projectsHref = computed(() => (props.standalone ? '/#proyectos' : '#proyectos'))
 </script>
 
 <template>
@@ -19,8 +30,8 @@ const { messages } = useLocale()
           :subtitle="messages.sections.showcase.subtitle"
         />
         <div class="showcase__cta">
-          <GradientButton href="#contacto">{{ messages.sections.showcase.ctaPrimary }}</GradientButton>
-          <GradientButton href="#proyectos" variant="outline">{{ messages.sections.showcase.ctaSecondary }}</GradientButton>
+          <GradientButton :href="contactHref">{{ messages.sections.showcase.ctaPrimary }}</GradientButton>
+          <GradientButton :href="projectsHref" variant="outline">{{ messages.sections.showcase.ctaSecondary }}</GradientButton>
         </div>
       </AnimateIn>
 

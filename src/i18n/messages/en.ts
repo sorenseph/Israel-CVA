@@ -5,7 +5,7 @@ const messages: Messages = {
     links: [
       { id: 'inicio', label: 'Home' },
       { id: 'proyectos', label: 'Projects' },
-      { id: 'demos', label: 'Demos' },
+      { id: 'demos', label: 'Demos', href: '/demo' },
       { id: 'sobre-mi', label: 'Studio' },
     ],
     contact: 'Contact',
@@ -41,6 +41,8 @@ const messages: Messages = {
         'Explore store, checkout, dashboard, and CRM in a single demo environment.',
       ctaPrimary: 'I want something like this',
       ctaSecondary: 'View project types',
+      enterDemo: 'Open interactive demo',
+      teaserHint: 'Store, checkout, dashboard, and CRM — interactive, right in your browser.',
     },
     deliverables: {
       label: 'Projects',
@@ -452,6 +454,9 @@ const messages: Messages = {
     simulatorDetail: 'Explore a functional product demo.',
     breadcrumbHome: 'Home',
     breadcrumbExplore: 'Projects',
+    demoTitle: 'Interactive demo',
+    demoDescription:
+      'Explore store, checkout, dashboard, and CRM in Studio ICVA’s interactive product demo.',
   },
   preloader: {},
   whatsapp: {

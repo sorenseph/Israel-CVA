@@ -41,7 +41,7 @@ function contactApiDevPlugin(env: Record<string, string>): Plugin {
         }
 
         const apiKey = env.RESEND_API_KEY
-        const to = env.CONTACT_TO_EMAIL ?? 'israelcardenas6@gmail.com'
+        const to = env.CONTACT_TO_EMAIL ?? 'info@studioicva.com'
         const from = env.CONTACT_FROM_EMAIL ?? 'Studio ICVA <onboarding@resend.dev>'
 
         if (!apiKey) {

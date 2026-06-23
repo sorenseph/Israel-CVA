@@ -18,7 +18,7 @@ const IN_LANGUAGE: Record<Locale, string> = {
 export interface PageStructuredDataInput {
   siteUrl: string
   locale: Locale
-  page: 'home' | 'simulator'
+  page: 'home' | 'simulator' | 'demo'
   path: string
   title: string
   description: string
@@ -182,6 +182,12 @@ export function buildSitemapXml(siteUrl: string) {
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${siteUrl}/demo</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
   <url>
     <loc>${siteUrl}/</loc>
     <lastmod>${lastmod}</lastmod>

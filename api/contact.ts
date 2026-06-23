@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 
-const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? 'israelcardenas6@gmail.com'
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? 'info@studioicva.com'
 const FROM_EMAIL =
   process.env.CONTACT_FROM_EMAIL ?? 'Studio ICVA <onboarding@resend.dev>'
 

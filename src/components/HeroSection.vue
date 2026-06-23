@@ -195,7 +195,7 @@ onUnmounted(() => {
 
       <div class="hero__actions">
         <GradientButton href="#contacto">{{ messages.hero.startProject }}</GradientButton>
-        <GradientButton href="#demos" variant="outline">{{ messages.hero.viewDemos }}</GradientButton>
+        <GradientButton to="/demo" variant="outline">{{ messages.hero.viewDemos }}</GradientButton>
       </div>
     </div>
 

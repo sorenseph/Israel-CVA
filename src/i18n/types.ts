@@ -3,6 +3,7 @@ export type Locale = 'es' | 'en'
 export interface NavLinkMessage {
   id: string
   label: string
+  href?: string
 }
 
 export interface ProcessStepMessage {
@@ -112,6 +113,8 @@ export interface Messages {
     showcase: SectionTitleMessage & {
       ctaPrimary: string
       ctaSecondary: string
+      enterDemo: string
+      teaserHint: string
     }
     deliverables: SectionTitleMessage & { exploreCta: string }
     process: SectionTitleMessage
@@ -236,6 +239,8 @@ export interface Messages {
     simulatorDetail: string
     breadcrumbHome: string
     breadcrumbExplore: string
+    demoTitle: string
+    demoDescription: string
   }
   preloader: Record<string, never>
   whatsapp: {

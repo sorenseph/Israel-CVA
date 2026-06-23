@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { RouterLink } from 'vue-router'
 import { gsap, HUYML_EASE } from '../lib/gsap-setup'
 import { useLocale } from '../i18n'
 import SiteLogo from './ui/SiteLogo.vue'
@@ -50,7 +51,7 @@ watch(menuOpen, (open) => {
   <header class="nav" :class="{ 'nav--scrolled': scrolled, 'nav--open': menuOpen }">
     <nav ref="navInner" class="nav__inner container">
       <a
-        href="#inicio"
+        href="/"
         class="nav__logo"
         :aria-label="messages.nav.aria.logoHome"
         @click="closeMenu"
@@ -70,7 +71,14 @@ watch(menuOpen, (open) => {
 
       <ul class="nav__links" :class="{ 'nav__links--open': menuOpen }">
         <li v-for="link in messages.nav.links" :key="link.id" class="nav__link-item">
-          <a :href="`#${link.id}`" @click="closeMenu">{{ link.label }}</a>
+          <RouterLink
+            v-if="link.href"
+            :to="link.href"
+            @click="closeMenu"
+          >
+            {{ link.label }}
+          </RouterLink>
+          <a v-else :href="`#${link.id}`" @click="closeMenu">{{ link.label }}</a>
         </li>
         <li class="nav__end">
           <LocaleToggle class="nav__locale" />

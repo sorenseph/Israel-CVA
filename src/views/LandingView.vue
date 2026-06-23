@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 import NavHeader from '../components/NavHeader.vue'
 import PreloaderOverlay from '../components/PreloaderOverlay.vue'
 import HeroSection from '../components/HeroSection.vue'
-import ShowcaseSection from '../components/ShowcaseSection.vue'
+import DemoTeaserSection from '../components/DemoTeaserSection.vue'
 import DeliverablesSection from '../components/DeliverablesSection.vue'
 import ProcessSection from '../components/ProcessSection.vue'
 import StatsSection from '../components/StatsSection.vue'
@@ -46,7 +46,7 @@ onMounted(() => {
     <main>
       <HeroSection :intro-ready="true" />
       <DeliverablesSection />
-      <ShowcaseSection />
+      <DemoTeaserSection />
       <ProcessSection />
       <StatsSection />
       <AboutSection />

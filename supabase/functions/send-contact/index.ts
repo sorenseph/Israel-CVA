@@ -1,7 +1,7 @@
 import 'jsr:@supabase/functions-js/edge-runtime.d.ts'
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
-const TO_EMAIL = Deno.env.get('CONTACT_TO_EMAIL') ?? 'israelcardenas6@gmail.com'
+const TO_EMAIL = Deno.env.get('CONTACT_TO_EMAIL') ?? 'info@studioicva.com'
 const FROM_EMAIL =
   Deno.env.get('CONTACT_FROM_EMAIL') ?? 'Studio ICVA <onboarding@resend.dev>'
 

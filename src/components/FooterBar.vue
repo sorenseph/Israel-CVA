@@ -15,6 +15,7 @@ const year = new Date().getFullYear()
       <p>
         © {{ year }} <strong>{{ profile.name }}</strong> — {{ messages.footer.tagline }}
       </p>
+      <a class="footer__email" :href="`mailto:${profile.email}`">{{ profile.email }}</a>
       <SocialLinks variant="footer" />
     </div>
   </footer>
@@ -35,6 +36,25 @@ const year = new Date().getFullYear()
     text-align: center;
     font-size: 0.85rem;
     color: $text-dim;
+  }
+}
+
+.footer__email {
+  color: $text-muted;
+  text-decoration: none;
+  font-family: $font-display;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  transition: color $transition;
+
+  &:hover {
+    color: $text-primary;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $accent-primary;
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 </style>

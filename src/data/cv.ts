@@ -4,7 +4,7 @@ export const profile = {
   role: 'Agencia de desarrollo digital',
   cedula: '11084605',
   phone: '+52 55 3913 4480',
-  email: 'israelcardenas6@gmail.com',
+  email: 'info@studioicva.com',
   location: 'México',
   summary:
     'Diseñamos y construimos productos digitales listos para operar: sitios web, webapps, SaaS, tiendas en línea, CRM, plataformas de servicios y apps móviles. Trabajamos contigo desde la idea hasta el lanzamiento, con entregas claras, diseño cuidado y foco en conversión y experiencia de usuario.',
