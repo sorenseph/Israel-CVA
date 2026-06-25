@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted, shallowRef, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { deliverableMeta } from '../data/cv'
 import { isValidSimulatorSlug, simulatorBySlug } from '../data/simulators'
 import { useLocale } from '../i18n'
+import type { Component } from 'vue'
 
 const props = defineProps<{ slug: string }>()
 const router = useRouter()
 const { messages } = useLocale()
 
-const config = computed(() =>
-  isValidSimulatorSlug(props.slug) ? simulatorBySlug[props.slug] : null,
-)
+const SimulatorComponent = shallowRef<Component | null>(null)
 
 const metaIndex = computed(() =>
   deliverableMeta.findIndex((item) => item.slug === props.slug),
@@ -26,9 +25,28 @@ const deliverable = computed(() => {
   }
 })
 
+async function loadSimulator(slug: string) {
+  if (!isValidSimulatorSlug(slug)) {
+    SimulatorComponent.value = null
+    return
+  }
+
+  SimulatorComponent.value = null
+  const mod = await simulatorBySlug[slug]()
+  SimulatorComponent.value = mod.default
+}
+
+watch(
+  () => props.slug,
+  (slug) => {
+    void loadSimulator(slug)
+  },
+  { immediate: true },
+)
+
 onMounted(() => {
   document.body.style.overflow = 'hidden'
-  if (!config.value) router.replace('/')
+  if (!isValidSimulatorSlug(props.slug)) router.replace('/')
 })
 
 onUnmounted(() => {
@@ -38,8 +56,8 @@ onUnmounted(() => {
 
 <template>
   <component
-    :is="config?.component"
-    v-if="config && deliverable"
+    :is="SimulatorComponent"
+    v-if="SimulatorComponent && deliverable"
     :deliverable="deliverable"
   />
 </template>

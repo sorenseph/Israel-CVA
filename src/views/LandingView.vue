@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, defineAsyncComponent } from 'vue'
 import NavHeader from '../components/NavHeader.vue'
 import PreloaderOverlay from '../components/PreloaderOverlay.vue'
 import HeroSection from '../components/HeroSection.vue'
 import DemoTeaserSection from '../components/DemoTeaserSection.vue'
 import DeliverablesSection from '../components/DeliverablesSection.vue'
-import ProcessSection from '../components/ProcessSection.vue'
-import StatsSection from '../components/StatsSection.vue'
-import AboutSection from '../components/AboutSection.vue'
-import TestimonialsSection from '../components/TestimonialsSection.vue'
-import ExperienceSection from '../components/ExperienceSection.vue'
-import FaqSection from '../components/FaqSection.vue'
-import CtaSection from '../components/CtaSection.vue'
-import ContactSection from '../components/ContactSection.vue'
 import FooterBar from '../components/FooterBar.vue'
 import WhatsAppButton from '../components/ui/WhatsAppButton.vue'
 import { initLenis } from '../lib/lenis-scroll'
+
+const ProcessSection = defineAsyncComponent(() => import('../components/ProcessSection.vue'))
+const StatsSection = defineAsyncComponent(() => import('../components/StatsSection.vue'))
+const AboutSection = defineAsyncComponent(() => import('../components/AboutSection.vue'))
+const TestimonialsSection = defineAsyncComponent(() => import('../components/TestimonialsSection.vue'))
+const ExperienceSection = defineAsyncComponent(() => import('../components/ExperienceSection.vue'))
+const FaqSection = defineAsyncComponent(() => import('../components/FaqSection.vue'))
+const CtaSection = defineAsyncComponent(() => import('../components/CtaSection.vue'))
+const ContactSection = defineAsyncComponent(() => import('../components/ContactSection.vue'))
 
 const skipPreloader =
   typeof sessionStorage !== 'undefined' && !!sessionStorage.getItem('icva-preloader-done')

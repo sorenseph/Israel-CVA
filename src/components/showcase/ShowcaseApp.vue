@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, defineAsyncComponent } from 'vue'
 import { motion } from 'motion-v'
-import DemoMetricCounter from '../demos/DemoMetricCounter.vue'
-import DemoCheckout from '../demos/DemoCheckout.vue'
-import DemoAuthCard from '../demos/DemoAuthCard.vue'
-import DemoCrmBoard from '../demos/DemoCrmBoard.vue'
-import DemoCart from '../demos/DemoCart.vue'
 import SiteLogo from '../ui/SiteLogo.vue'
 import { useLocale } from '../../i18n'
+
+const DemoMetricCounter = defineAsyncComponent(() => import('../demos/DemoMetricCounter.vue'))
+const DemoCheckout = defineAsyncComponent(() => import('../demos/DemoCheckout.vue'))
+const DemoAuthCard = defineAsyncComponent(() => import('../demos/DemoAuthCard.vue'))
+const DemoCrmBoard = defineAsyncComponent(() => import('../demos/DemoCrmBoard.vue'))
+const DemoCart = defineAsyncComponent(() => import('../demos/DemoCart.vue'))
 
 type Tab = 'dashboard' | 'store' | 'crm'
 

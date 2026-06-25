@@ -153,5 +153,21 @@ export default defineConfig(({ mode }) => {
   const siteUrl = normalizeSiteUrl(env.VITE_SITE_URL)
   return {
     plugins: [vue(), contactApiDevPlugin(env), seoBuildPlugin(siteUrl)],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return
+
+            if (id.includes('lottie-web')) return 'vendor-lottie'
+            if (id.includes('gsap')) return 'vendor-gsap'
+            if (id.includes('motion-v') || id.includes('/motion/')) return 'vendor-motion'
+            if (id.includes('@supabase')) return 'vendor-supabase'
+            if (id.includes('lenis')) return 'vendor-lenis'
+            if (id.includes('vue') || id.includes('vue-router')) return 'vendor-vue'
+          },
+        },
+      },
+    },
   }
 })

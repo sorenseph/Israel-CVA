@@ -10,7 +10,7 @@ let anim: AnimationItem | null = null
 
 watch(
   () => props.visible,
-  (show) => {
+  async (show) => {
     if (!show) {
       destroyLottie(anim)
       anim = null
@@ -20,7 +20,7 @@ watch(
     if (!root.value) return
     destroyLottie(anim)
     root.value.innerHTML = ''
-    anim = mountLottie(root.value, '/lottie/pointer.json', { loop: true, autoplay: true })
+    anim = await mountLottie(root.value, '/lottie/pointer.json', { loop: true, autoplay: true })
   },
   { immediate: true },
 )

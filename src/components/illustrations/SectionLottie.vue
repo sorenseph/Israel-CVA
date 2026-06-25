@@ -30,12 +30,12 @@ const rootClass = computed(() => {
   return classes
 })
 
-function loadAnimation() {
+async function loadAnimation() {
   if (!root.value) return
   destroyLottie(anim)
   anim = null
   root.value.innerHTML = ''
-  anim = mountLottie(root.value, lottieIcons[props.name], {
+  anim = await mountLottie(root.value, lottieIcons[props.name], {
     loop: true,
     autoplay: true,
   })

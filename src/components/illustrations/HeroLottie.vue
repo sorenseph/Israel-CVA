@@ -102,7 +102,7 @@ function scheduleHandoff(resolve: () => void) {
 }
 
 function playEntrance(): Promise<void> {
-  return new Promise((resolve) => {
+  return new Promise(async (resolve) => {
     if (!dropEl.value || !loopEl.value) {
       resolve()
       return
@@ -124,15 +124,15 @@ function playEntrance(): Promise<void> {
     gsap.set(dropEl.value, { opacity: 1, visibility: 'visible', scale: HANDOFF_SCALE })
     gsap.set(loopEl.value, { opacity: 0, visibility: 'hidden', scale: HANDOFF_SCALE })
 
-    loopAnim = mountLottie(loopEl.value, LOOP_SRC, { loop: true, autoplay: false })
+    loopAnim = await mountLottie(loopEl.value, LOOP_SRC, { loop: true, autoplay: false })
 
-    const beginDrop = () => {
+    const beginDrop = async () => {
       if (!running || !dropEl.value) {
         swapToLoop(resolve)
         return
       }
 
-      dropAnim = mountLottie(dropEl.value, DROP_SRC, { loop: false, autoplay: true })
+      dropAnim = await mountLottie(dropEl.value, DROP_SRC, { loop: false, autoplay: true })
 
       const onReady = () => dropAnim?.setSpeed(HUYML_LOTTIE.dropSpeed)
       dropAnim.addEventListener('DOMLoaded', onReady)

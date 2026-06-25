@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
 import { motion } from 'motion-v'
 import { useLocale } from '../i18n'
 import SectionTitle from './ui/SectionTitle.vue'
-import ShowcaseApp from './showcase/ShowcaseApp.vue'
 import GradientButton from './ui/GradientButton.vue'
 import AnimateIn from './ui/AnimateIn.vue'
+
+const ShowcaseApp = defineAsyncComponent(() => import('./showcase/ShowcaseApp.vue'))
 
 const props = withDefaults(
   defineProps<{
