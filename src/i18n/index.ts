@@ -27,10 +27,35 @@ export interface LocaleContext {
   toggleLocale: () => void
 }
 
-function readStoredLocale(): Locale {
-  if (typeof localStorage === 'undefined') return 'es'
-  const stored = localStorage.getItem(STORAGE_KEY)
-  return stored === 'en' ? 'en' : 'es'
+/** Español del navegador/sistema → es; inglés u otro idioma → en. */
+function detectBrowserLocale(): Locale {
+  if (typeof navigator === 'undefined') return 'en'
+
+  const candidates = [
+    ...(navigator.languages ?? []),
+    navigator.language,
+  ].filter(Boolean)
+
+  for (const tag of candidates) {
+    const primary = tag.toLowerCase().split('-')[0]
+    if (primary === 'es') return 'es'
+    if (primary === 'en') return 'en'
+  }
+
+  return 'en'
+}
+
+/** Preferencia guardada del usuario; si no hay, idioma del navegador/sistema. */
+export function resolveInitialLocale(): Locale {
+  if (typeof localStorage !== 'undefined') {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    if (stored === 'en' || stored === 'es') return stored
+  }
+  return detectBrowserLocale()
+}
+
+export function getMessages(locale: Locale): Messages {
+  return messagesByLocale[locale]
 }
 
 function applyDocumentLang(locale: Locale) {
@@ -38,7 +63,7 @@ function applyDocumentLang(locale: Locale) {
 }
 
 function createLocaleContext(): LocaleContext {
-  const locale = ref<Locale>(readStoredLocale())
+  const locale = ref<Locale>(resolveInitialLocale())
 
   const messages = computed(() => messagesByLocale[locale.value])
 

@@ -1,7 +1,8 @@
 import type { Locale } from '../i18n'
+import { getMessages, resolveInitialLocale } from '../i18n'
 import { seo, absoluteUrl, resolveSiteUrl } from '../data/seo'
 import { defaultOgImage } from '../data/seo-assets'
-import { buildStructuredData } from './seo-build'
+import { buildPageStructuredData } from './seo-build'
 
 const JSON_LD_ID = 'portfolio-json-ld'
 
@@ -131,13 +132,25 @@ export function applyDefaultSeo() {
   const siteUrl = resolveSiteUrl()
   if (!siteUrl) return
 
+  const locale = resolveInitialLocale()
+  const seoMsg = getMessages(locale).seo
+  const title = `${seoMsg.homeTitle} | ${seoMsg.titleSuffix}`
+
   applyPageSeo({
-    title: seo.title,
-    description: seo.description,
-    keywords: seo.keywords,
+    title,
+    description: seoMsg.homeDescription,
+    keywords: seoMsg.keywords,
     path: '/',
-    locale: 'es',
+    locale,
     imagePath: defaultOgImage,
-    structuredData: buildStructuredData(siteUrl),
+    imageAlt: seoMsg.defaultImageAlt,
+    structuredData: buildPageStructuredData({
+      siteUrl,
+      locale,
+      page: 'home',
+      path: '/',
+      title,
+      description: seoMsg.homeDescription,
+    }),
   })
 }
